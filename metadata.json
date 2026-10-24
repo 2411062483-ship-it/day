@@ -1,0 +1,6 @@
+{
+  "name": "Tháp Đồng Hành — Tactical Dungeon Crawler",
+  "description": "Chiến thuật leo tháp roguelike theo lượt với địa hình cao thấp, đẩy lùi va tường, kỹ năng độc bản, quản lý đội hình 4 người và cày cấp chiến lược.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

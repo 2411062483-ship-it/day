@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171d1b">
+  <title>Tháp Đồng Hành — Tầng 01</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+    :root{color-scheme:dark;--ink:#e7e8d9;--muted:#8c978b;--line:#39443b;--panel:#202923;--panel2:#29352c;--bg:#171d1b;--lime:#c6e56a;--red:#f07866;--blue:#76b9e8;--gold:#e9be62;--green:#77bd83}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Space Grotesk',sans-serif;min-height:100vh;background-image:radial-gradient(ellipse at 52% 42%,rgba(122,155,103,.09),transparent 55%),linear-gradient(rgba(230,240,220,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(230,240,220,.018) 1px,transparent 1px);background-size:auto,24px 24px,24px 24px}
+    button{font:inherit;color:inherit;cursor:pointer} .app{max-width:1500px;margin:auto;padding:22px 28px 28px}.topbar{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:3px 0 18px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:13px}.brand-mark{width:38px;height:38px;background:var(--lime);color:#1b211b;display:grid;place-items:center;font:500 18px 'DM Mono';clip-path:polygon(0 0,78% 0,100% 22%,100% 100%,22% 100%,0 78%)}.eyebrow,.mono,.tag,.stat-label,.section-kicker{font:500 10px 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase}.eyebrow{color:var(--lime);margin:0 0 3px}.brand h1{font-size:18px;margin:0;letter-spacing:0}.top-meta{display:flex;align-items:center;gap:22px;color:var(--muted);font:11px 'DM Mono',monospace}.floor-mark{color:var(--ink);border-left:1px solid var(--line);padding-left:22px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:18px;align-items:start}.battle-column{min-width:0}.battle-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:11px}.battle-head h2{font-size:15px;margin:0 0 3px}.battle-head p{font:11px 'DM Mono';color:var(--muted);margin:0}.round-pill{border:1px solid var(--line);padding:7px 10px;font:10px 'DM Mono';color:var(--muted)}.round-pill b{color:var(--lime);font-weight:500}.board-wrap{position:relative;border:1px solid #52604e;background:#202821;box-shadow:0 12px 32px #090d0b66;overflow:hidden}.board-wrap:before,.board-wrap:after{content:'';position:absolute;z-index:2;pointer-events:none;background:#a6bd7c}.board-wrap:before{width:7px;height:1px;top:-1px;left:18px}.board-wrap:after{height:7px;width:1px;left:-1px;top:18px}.canvas-shell{width:100%;aspect-ratio:1.78;min-height:370px;max-height:590px;display:flex;align-items:center;justify-content:center;background-color:#273229;background-image:linear-gradient(45deg,#303b30 25%,transparent 25%,transparent 75%,#303b30 75%),linear-gradient(45deg,#303b30 25%,transparent 25%,transparent 75%,#303b30 75%);background-position:0 0,12px 12px;background-size:24px 24px}canvas{display:block;width:100%;height:100%;image-rendering:auto;touch-action:none}.board-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 13px;background:#1b231e;border-top:1px solid var(--line);font:10px 'DM Mono';color:var(--muted)}.legend{display:flex;gap:14px;flex-wrap:wrap}.legend span{display:inline-flex;gap:6px;align-items:center}.swatch{width:8px;height:8px;display:inline-block}.swatch.move{background:#74c6b1}.swatch.range{background:#e8bc62}.swatch.active{background:var(--lime)}.turn-order{margin-top:14px;background:rgba(32,41,35,.75);border:1px solid var(--line);padding:12px 14px}.row-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.row-title h3,.panel-title{font-size:11px;margin:0;font-weight:600}.row-title span{font:10px 'DM Mono';color:var(--muted)}.turn-strip{display:flex;gap:7px;overflow:auto;padding-bottom:1px}.turn-chip{flex:0 0 auto;display:flex;align-items:center;gap:8px;min-width:100px;border:1px solid #3a463c;background:#263128;padding:6px 9px;opacity:.55}.turn-chip.current{opacity:1;border-color:var(--lime);box-shadow:inset 2px 0 var(--lime)}.turn-chip.dead{filter:grayscale(1);opacity:.22}.mini-sprite{width:20px;height:20px;display:grid;place-items:center;font:10px 'DM Mono';color:#111;background:var(--unit-color);image-rendering:pixelated}.turn-name{font-size:10px;white-space:nowrap}.turn-speed{font:9px 'DM Mono';color:var(--muted)}.sidebar{display:flex;flex-direction:column;gap:12px}.panel{border:1px solid var(--line);background:rgba(32,41,35,.92)}.panel-head{padding:12px 13px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.panel-head .section-kicker{color:var(--muted)}.party-list{padding:4px 10px}.unit-card{display:grid;grid-template-columns:35px minmax(0,1fr) auto;gap:9px;align-items:center;padding:10px 3px;border-bottom:1px solid #354037;cursor:pointer;transition:background .16s}.unit-card:last-child{border:0}.unit-card:hover,.unit-card.selected{background:#2b372d}.portrait{width:34px;height:34px;display:grid;place-items:center;color:#182019;font:500 12px 'DM Mono';border:1px solid #ffffff22;box-shadow:inset 0 -5px #0002}.unit-copy{min-width:0}.unit-name{font-size:11px;font-weight:600;display:flex;justify-content:space-between;gap:4px}.unit-role{font:9px 'DM Mono';color:var(--muted);margin-top:2px}.hp-track,.mp-track{height:4px;background:#111916;margin-top:6px;overflow:hidden}.hp-fill,.mp-fill{height:100%;background:var(--green);transition:width .3s}.mp-track{height:3px;margin-top:3px}.mp-fill{background:var(--blue)}.health-numbers{font:9px 'DM Mono';color:var(--muted);margin-top:4px;display:flex;gap:8px}.unit-level{align-self:start;font:9px 'DM Mono';color:var(--gold)}.unit-card.down{opacity:.38}.action-area{padding:12px}.active-summary{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.active-summary strong{font-size:12px}.active-summary span{font:9px 'DM Mono';color:var(--lime)}.actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}.action-btn{min-height:38px;border:1px solid #4b594b;background:#2a362d;text-align:left;padding:7px 8px;display:flex;gap:8px;align-items:center;font-size:10px;transition:.15s}.action-btn:hover:not(:disabled){background:#38483a;border-color:var(--lime)}.action-btn:disabled{opacity:.35;cursor:not-allowed}.action-btn .key{width:19px;height:19px;border:1px solid #64705f;display:grid;place-items:center;color:var(--lime);font:10px 'DM Mono'}.action-btn.end{grid-column:span 2;background:#39442f;border-color:#71834d}.action-hint{font:9px 'DM Mono';color:var(--muted);line-height:1.5;margin:9px 1px 0;min-height:27px}.log-panel{padding-bottom:6px}.combat-log{height:142px;overflow:auto;padding:6px 12px;font:10px/1.65 'DM Mono';color:#a5b0a1}.log-line{border-bottom:1px solid #343f36;padding:4px 0}.log-line:first-child{color:var(--lime)}.log-line.enemy{color:#e4937d}.log-line.good{color:#a6d788}.log-line b{color:var(--ink);font-weight:500}.statusbar{display:flex;justify-content:space-between;gap:15px;padding:13px 1px;color:var(--muted);font:9px 'DM Mono';text-transform:uppercase;letter-spacing:.04em}.statusbar .live{color:var(--green)}.overlay{position:absolute;inset:0;background:#111914e8;display:none;place-items:center;z-index:5;text-align:center;padding:20px}.overlay.show{display:grid}.result-box{max-width:360px}.result-box .result-mark{font:36px 'DM Mono';color:var(--lime)}.result-box h2{font-size:25px;margin:8px 0}.result-box p{font:12px/1.6 'DM Mono';color:var(--muted)}.primary-btn{border:0;background:var(--lime);color:#172017;padding:11px 16px;font:600 11px 'DM Mono';text-transform:uppercase;margin-top:8px}.primary-btn:hover{background:#daf28a}.mobile-actions{display:none}
+    .playback{padding:12px}.playback-main{display:grid;grid-template-columns:1fr 42px;gap:7px}.playback-btn,.speed-btn{min-height:39px;border:1px solid #61734b;background:#37432f;font:600 10px 'DM Mono';text-transform:uppercase}.playback-btn{color:var(--lime)}.speed-btn{border-color:var(--line);background:#253027}.playback-btn:disabled{opacity:.45;cursor:default}.restart-btn{width:100%;margin-top:7px;padding:8px;border:1px solid var(--line);background:transparent;color:var(--muted);font:10px 'DM Mono'}.playback-btn:hover:not(:disabled),.speed-btn:hover,.restart-btn:hover{border-color:var(--lime);color:var(--lime)}.boss-badge{color:#f2a06a;border:1px solid #a7533b;padding:5px 7px;margin-left:7px;font:9px 'DM Mono';letter-spacing:.08em}.loot-list{padding:7px 12px}.loot-entry{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #354037;font-size:10px}.loot-entry:last-child{border-bottom:0}.loot-icon{width:26px;height:26px;display:grid;place-items:center;border:1px solid currentColor;font:11px 'DM Mono'}.loot-name{font-weight:600}.loot-sub{font:9px 'DM Mono';color:var(--muted);margin-top:2px}.rarity-stars{font:10px 'DM Mono';letter-spacing:0;white-space:nowrap}.loot-empty{padding:10px 0;color:var(--muted);font:10px 'DM Mono'}.unit-card{cursor:default}
+    .gold-line{display:flex;justify-content:space-between;align-items:center;padding:3px 0 9px;color:var(--muted);font:9px 'DM Mono';border-bottom:1px solid var(--line)}.gold-line b{color:var(--gold);font-size:12px}.detail-box{border-top:1px solid var(--line);padding:11px}.detail-head{display:flex;justify-content:space-between;align-items:center}.detail-head strong{font-size:13px}.detail-role{font:9px 'DM Mono';color:var(--muted);margin-top:3px}.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:10px 0}.stat-cell{background:#18211b;border:1px solid #344137;padding:6px}.stat-cell span{display:block;font:8px 'DM Mono';color:var(--muted)}.stat-cell b{font:11px 'DM Mono';color:var(--ink)}.skill-line{padding-top:8px;border-top:1px solid var(--line);font:9px/1.6 'DM Mono';color:#bcc8ac}.management-view{border-top:1px solid var(--line);padding:16px 0}.management-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:14px}.management-head h2{margin:0;font-size:18px}.management-head p{margin:4px 0 0;font:10px 'DM Mono';color:var(--muted)}.management-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:14px}.management-roster,.management-main{border:1px solid var(--line);background:rgba(32,41,35,.84)}.management-roster{padding:9px}.management-main{padding:14px}.gear-slot{display:grid;grid-template-columns:100px minmax(0,1fr) auto;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.gear-slot:last-child{border-bottom:0}.gear-slot label{font:9px 'DM Mono';color:var(--muted)}.gear-slot select,.filter-select{min-width:0;background:#18211b;border:1px solid var(--line);color:var(--ink);padding:8px;font:10px 'DM Mono'}.gear-empty{color:#758075}.filter-row{display:flex;gap:8px;align-items:center;margin-bottom:12px}.filter-select{min-width:140px}.item-grid,.shop-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.inventory-item,.shop-item{border:1px solid var(--line);background:var(--panel);padding:11px;display:grid;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:start}.inventory-item .item-icon,.shop-item .item-icon{width:32px;height:32px;display:grid;place-items:center;border:1px solid currentColor;font:13px 'DM Mono'}.item-copy strong{font-size:11px}.item-meta{font:9px/1.6 'DM Mono';color:var(--muted);margin-top:4px}.item-actions{grid-column:1/-1;display:flex;gap:6px;margin-top:3px}.small-action{border:1px solid var(--line);background:#263129;padding:7px 9px;font:9px 'DM Mono';color:var(--ink)}.small-action:hover:not(:disabled){border-color:var(--lime);color:var(--lime)}.small-action:disabled{opacity:.35;cursor:not-allowed}.price{color:var(--gold);font:10px 'DM Mono'}.modal-backdrop{position:fixed;inset:0;background:#0d120fe8;z-index:10;display:grid;place-items:center;padding:20px}.recruit-modal{width:min(460px,100%);border:1px solid #66745d;background:#202923;padding:24px}.recruit-modal h2{font-size:25px;margin:8px 0}.recruit-modal>p:not(.eyebrow){font:11px/1.7 'DM Mono';color:var(--muted)}.recruit-actions{display:flex;gap:8px;margin-top:18px}.recruit-actions>*{flex:1}
+    [hidden]{display:none!important}.menu-screen{max-width:980px;margin:7vh auto 0;border-top:1px solid #66745d;border-bottom:1px solid var(--line);padding:30px 0 34px}.menu-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(240px,.8fr);gap:40px;align-items:center}.menu-title{font-size:clamp(34px,5vw,62px);line-height:.98;margin:14px 0 12px;max-width:600px}.menu-copy{max-width:470px;color:var(--muted);font:12px/1.8 'DM Mono'}.menu-actions{display:grid;gap:8px}.menu-action{min-height:48px;text-align:left;border:1px solid var(--line);background:var(--panel);padding:0 15px;display:flex;justify-content:space-between;align-items:center;font-size:12px}.menu-action.primary{background:var(--lime);border-color:var(--lime);color:#172017;font-weight:700}.menu-action:disabled{opacity:.35;cursor:not-allowed}.menu-action:hover:not(:disabled){border-color:var(--lime)}.menu-note{margin-top:13px;color:var(--muted);font:9px 'DM Mono';line-height:1.6}.setup-screen{max-width:1080px;margin:26px auto}.screen-heading{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}.screen-heading h2{margin:0;font-size:21px}.screen-heading p{margin:4px 0 0;color:var(--muted);font:10px 'DM Mono'}.starter-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.starter-card{border:1px solid var(--line);background:var(--panel);padding:12px;cursor:pointer;min-height:124px}.starter-card.chosen{border-color:var(--lime);box-shadow:inset 0 2px var(--lime)}.starter-card h3{font-size:13px;margin:8px 0 3px}.starter-card p{color:var(--muted);font:9px/1.5 'DM Mono';margin:0}.starter-card .starter-mark{display:flex;justify-content:space-between;color:var(--lime);font:10px 'DM Mono'}.starter-footer{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:15px;padding-top:14px;border-top:1px solid var(--line)}.starter-loadout{display:flex;gap:8px;flex-wrap:wrap}.starter-loadout label{font:9px 'DM Mono';color:var(--muted)}.starter-loadout select{display:block;margin-top:5px;background:#202923;border:1px solid var(--line);padding:8px;color:var(--ink);min-width:145px}.game-tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:0 0 14px;overflow:auto}.game-tab{flex:0 0 auto;border:0;border-bottom:2px solid transparent;background:transparent;padding:10px 13px;color:var(--muted);font:10px 'DM Mono';text-transform:uppercase}.game-tab.active{color:var(--lime);border-color:var(--lime)}.app-header-menu{margin-bottom:0}.menu-footer{display:flex;gap:18px;color:var(--muted);font:9px 'DM Mono';margin-top:34px}
+    @media(max-width:1000px){.layout{grid-template-columns:minmax(0,1fr) 280px}.app{padding:18px}.canvas-shell{min-height:330px}}
+    @media(max-width:760px){.app{padding:12px}.topbar{padding-bottom:12px}.top-meta{gap:10px}.floor-mark{padding-left:10px}.layout{grid-template-columns:1fr;gap:12px}.canvas-shell{aspect-ratio:1.25;min-height:280px;max-height:440px}.board-footer{align-items:flex-start;flex-direction:column}.sidebar{display:grid;grid-template-columns:1fr 1fr;gap:9px}.panel.party-panel{grid-row:span 2}.actions{grid-template-columns:1fr 1fr}.combat-log{height:112px}.statusbar{font-size:8px}.turn-order{margin-top:10px}}
+    @media(max-width:470px){.brand h1{font-size:15px}.brand-mark{width:32px;height:32px}.top-meta{font-size:9px}.battle-head h2{font-size:13px}.battle-head p{font-size:9px}.sidebar{grid-template-columns:1fr}.panel.party-panel{grid-row:auto}.party-list{display:grid;grid-template-columns:1fr 1fr;column-gap:8px}.unit-card{grid-template-columns:30px minmax(0,1fr) auto;gap:6px}.portrait{width:29px;height:29px}.unit-name{font-size:10px}.actions{grid-template-columns:1fr 1fr}.canvas-shell{min-height:255px}.statusbar{flex-direction:column;gap:5px}.menu-grid{grid-template-columns:1fr;gap:20px}.menu-screen{margin:24px 3px 0;padding:22px 0}.menu-title{font-size:39px}.starter-grid{grid-template-columns:1fr 1fr}.starter-footer{align-items:stretch;flex-direction:column}.starter-loadout select{min-width:0;width:100%}}
+    .swatch.river{background:#4ea8bf}.swatch.abyss{background:#111722;border:1px solid #718096}.swatch.lava{background:#ef7e35}.swatch.trap{background:#c0a05f}.swatch.portal{background:#9ab6ed}
+    @media(max-width:760px){.management-layout{grid-template-columns:1fr}.management-roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}.management-main{min-width:0}.filter-row{flex-wrap:wrap}.filter-select{flex:1 1 135px;min-width:0}.item-grid,.shop-grid{grid-template-columns:1fr}}
+    @media(max-width:470px){.management-roster{grid-template-columns:1fr}.gear-slot{grid-template-columns:70px minmax(0,1fr);gap:6px}.gear-slot .small-action,.gear-slot .gear-empty{grid-column:2}.management-head{align-items:start;gap:8px}.item-actions{flex-wrap:wrap}.management-view{padding:12px 0}.party-list .unit-card{cursor:pointer}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar app-header-menu" id="appHeader">
+      <div class="brand"><div class="brand-mark">TD</div><div><p class="eyebrow">Biên niên sử leo tháp</p><h1>THÁP ĐỒNG HÀNH</h1></div></div>
+      <div class="top-meta"><span>CHẾ ĐỘ ĐƠN</span><span class="floor-mark">TẦNG <b id="floorNumber">01</b></span></div>
+    </header>
+    <section class="menu-screen" id="titleView">
+      <div class="menu-grid"><div><p class="eyebrow">RPG chiến thuật · Đội hình tự hành động</p><h2 class="menu-title">THÁP<br>ĐỒNG HÀNH</h2><p class="menu-copy">Một hành trình chiến thuật qua những tầng tháp luôn đổi khác. Chọn người đồng hành, chuẩn bị trang bị, rồi quan sát AI chiến đấu.</p><div class="menu-footer"><span id="saveSummary">CHƯA CÓ TIẾN TRÌNH</span><span>PC · HTML5</span></div></div><div class="menu-actions"><button class="menu-action primary" id="newRunButton">Chơi mới <span>↗</span></button><button class="menu-action" id="continueRunButton" disabled>Tiếp tục <span>↗</span></button><button class="menu-action" id="settingsButton">Cài đặt <span>⌄</span></button><div class="menu-note" id="settingsPanel" hidden><label>Tốc độ mặc định<select id="defaultSpeed"><option value="0">1×</option><option value="1">2×</option><option value="2">4×</option></select></label><label><input id="saveToggle" type="checkbox" checked> Tự lưu tiến trình trên máy này</label></div></div></div>
+    </section>
+    <section class="setup-screen" id="setupView" hidden>
+      <div class="screen-heading"><div><h2>Chọn hai người mở đường</h2><p>Chọn đúng hai nhân vật. Mỗi người nhận một vũ khí miễn phí; mọi lớp đều có thể đổi vũ khí.</p></div><button class="restart-btn" id="backToMenuButton">← MENU</button></div>
+      <div class="starter-grid" id="starterGrid"></div>
+      <div class="starter-footer"><div class="starter-loadout" id="starterLoadouts"></div><button class="playback-btn" id="startNewRunButton">VÀO THÁP</button></div>
+    </section>
+    <div id="gameView" hidden>
+    <nav class="game-tabs" aria-label="Các trang quản lý"><button class="game-tab active" data-tab="battle">Chiến trường</button><button class="game-tab" data-tab="team">Đội & trang bị</button><button class="game-tab" data-tab="inventory">Túi đồ</button><button class="game-tab" data-tab="shop">Cửa hàng</button><button class="game-tab" id="menuButton">Menu</button></nav>
+    <div class="layout" id="battleTab">
+      <section class="battle-column">
+        <div class="battle-head"><div><h2 id="roomTitle">Phòng chiến đấu · Cánh Đông</h2><p id="battleMessage">Đội hình đã sẵn sàng. Bắt đầu để xem trận đấu tự diễn ra.</p></div><div><span class="boss-badge" id="bossBadge" hidden>BOSS</span><span class="round-pill">VÒNG <b id="roundNumber">01</b></span></div></div>
+        <div class="board-wrap">
+          <div class="canvas-shell"><canvas id="battlefield" aria-label="Bản đồ chiến đấu dạng lưới"></canvas></div>
+          <div class="overlay" id="resultOverlay"><div class="result-box"><div class="result-mark" id="resultMark">01</div><h2 id="resultTitle">CHIẾN THẮNG</h2><p id="resultText">Căn phòng đã được dọn sạch.</p><button class="primary-btn" id="continueButton">LÊN TẦNG TIẾP</button></div></div>
+        </div>
+        <div class="board-footer"><div class="legend"><span><i class="swatch active"></i>Đang hành động</span><span><i class="swatch range"></i>Địch</span><span><i class="swatch river"></i>Sông</span><span><i class="swatch abyss"></i>Vực</span><span><i class="swatch lava"></i>Nham thạch</span><span><i class="swatch trap"></i>Bẫy</span><span><i class="swatch portal"></i>Cổng</span></div><span id="boardCoordinates">12 × 8 · CỬA RA BÊN PHẢI</span></div>
+        <div class="turn-order"><div class="row-title"><h3>THỨ TỰ HÀNH ĐỘNG</h3><span>SẮP XẾP THEO SPD</span></div><div class="turn-strip" id="turnStrip"></div></div>
+        <div class="statusbar"><span><i class="live" id="battleStatus">● CHỜ BẮT ĐẦU</i> · BẢN THỬ NGHIỆM</span><span id="statusHint">NHẤN BẮT ĐẦU ĐỂ CHẠY TRẬN</span></div>
+      </section>
+      <aside class="sidebar">
+        <section class="panel party-panel"><div class="panel-head"><h3 class="panel-title">ĐỘI HÌNH</h3><span class="section-kicker" id="partyCount">02 ĐỒNG ĐỘI</span></div><div class="party-list" id="partyList"></div><div class="detail-box" id="characterDetail"></div></section>
+        <section class="panel"><div class="panel-head"><h3 class="panel-title">TIỀN & TÚI ĐỒ</h3><span class="section-kicker" id="lootCount">00 MÓN</span></div><div class="loot-list"><div class="gold-line"><span>VÀNG</span><b id="goldAmount">0 ◈</b></div><div id="lootList"><div class="loot-empty">Chưa tìm thấy vật phẩm.</div></div></div></section>
+        <section class="panel"><div class="panel-head"><h3 class="panel-title">TỰ ĐỘNG CHIẾN ĐẤU</h3><span class="section-kicker" id="turnOwner">SẴN SÀNG</span></div><div class="playback"><div class="active-summary"><strong id="activeName">Chưa bắt đầu</strong><span id="activeSpeed">SPD —</span></div><div class="playback-main"><button class="playback-btn" id="playbackBtn">▶ BẮT ĐẦU</button><button class="speed-btn" id="speedBtn" title="Đổi tốc độ phát">1×</button></div><button class="restart-btn" id="restartBtn">↻ Chơi lại phòng này</button><p class="action-hint" id="actionHint">AI tự điều khiển cả đội và quái. Bạn chỉ cần xem diễn biến trận đấu.</p></div></section>
+        <section class="panel log-panel"><div class="panel-head"><h3 class="panel-title">NHẬT KÝ TRẬN ĐẤU</h3><span class="section-kicker">LIVE</span></div><div class="combat-log" id="combatLog" aria-live="polite"></div></section>
+      </aside>
+    </div>
+    <section class="management-view" id="teamTab" hidden></section><section class="management-view" id="inventoryTab" hidden></section><section class="management-view" id="shopTab" hidden></section>
+    <div class="modal-backdrop" id="recruitModal" hidden><section class="recruit-modal"><p class="eyebrow">GẶP GỠ TRÊN ĐƯỜNG</p><h2 id="recruitName">Một người đồng hành mới</h2><p id="recruitDescription"></p><div class="recruit-actions"><button class="playback-btn" id="recruitAccept">MỜI VÀO ĐỘI</button><button class="restart-btn" id="recruitDecline">ĐỂ SAU</button></div></section></div>
+    </div>
+  </main>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('battlefield');
+  const ctx = canvas.getContext('2d');
+  const cols = 12, rows = 8;
+  let walls = new Set(['4,1','4,2','4,5','4,6','7,1','7,6','2,4','9,3','9,4']);
+  const wallLayouts = [
+    ['4,1','4,2','4,5','4,6','7,1','7,6','2,4','9,3','9,4'],
+    ['3,1','3,2','3,5','3,6','6,2','6,5','8,1','10,2','10,4'],
+    ['2,2','2,5','5,1','5,2','5,5','5,6','8,2','8,5','10,1','10,6']
+  ];
+  const terrainPresets=[
+    {name:'Khúc Sông Cạn',terrain:[...Array.from({length:7},(_,i)=>[`5,${i}`,i===3?'bridge':'water']),...Array.from({length:4},(_,i)=>[`8,${i+2}`,i===1?'bridge':'water']),['3,6','trap']]},
+    {name:'Vực Đôi',terrain:[...Array.from({length:8},(_,i)=>[`6,${i}`,i===3?'bridge':'abyss']),['3,2','portal'],['9,6','portal'],['4,6','trap']]},
+    {name:'Dòng Nham Thạch',terrain:[['5,2','lava'],['5,3','lava'],['5,4','lava'],['6,4','lava'],['7,4','lava'],['8,4','lava'],['3,6','trap'],['9,2','lava']]},
+    {name:'Hai Tháp Nối Nhau',terrain:[...Array.from({length:6},(_,i)=>[`6,${i+1}`,'abyss']),['6,4','bridge'],['3,2','portal'],['9,6','portal'],['4,5','trap']]}
+  ];
+  const baseUnits = [
+    {id:'swordsman',name:'Bảo',role:'KIẾM SĨ · CẬN CHIẾN',kind:'hero',glyph:'K',color:'#d8a65e',x:1,y:2,hp:34,maxHp:34,mp:8,maxMp:8,atk:9,matk:1,def:3,spd:13,range:1,move:3,level:1,exp:0,acted:false,moved:false,guard:0},
+    {id:'tank',name:'Đạt',role:'TANK · ĐỠ ĐÒN',kind:'hero',glyph:'T',color:'#aab7a0',x:1,y:3,hp:48,maxHp:48,mp:10,maxMp:10,atk:6,matk:1,def:7,spd:7,range:1,move:2,level:1,exp:0,acted:false,moved:false,guard:0},
+    {id:'archer',name:'Linh',role:'CUNG THỦ',kind:'hero',glyph:'C',color:'#83bd83',x:1,y:5,hp:23,maxHp:23,mp:7,maxMp:7,atk:7,matk:1,def:2,spd:18,range:3,move:4,level:1,exp:0,acted:false,moved:false,guard:0},
+    {id:'mage',name:'Miên',role:'PHÁP SƯ',kind:'hero',glyph:'P',color:'#83b6d6',x:2,y:4,hp:21,maxHp:21,mp:18,maxMp:18,atk:3,matk:9,def:1,spd:9,range:3,move:3,level:1,exp:0,acted:false,moved:false,guard:0},
+    {id:'cleric',name:'An',role:'TU SĨ · HỖ TRỢ',kind:'hero',glyph:'✚',color:'#d9c27c',x:2,y:6,hp:25,maxHp:25,mp:18,maxMp:18,atk:3,matk:7,def:2,spd:10,range:2,move:3,level:1,exp:0,acted:false,moved:false,guard:0},
+    {id:'slime',name:'Bùn Đục',role:'QUÁI · THƯỜNG',kind:'enemy',glyph:'B',color:'#d97764',x:9,y:2,hp:19,maxHp:19,mp:0,maxMp:0,atk:6,matk:0,def:1,spd:7,range:1,move:2,level:1,exp:0,acted:false,moved:false,guard:0},
+    {id:'stalker',name:'Kẻ Rình',role:'QUÁI · NHANH',kind:'enemy',glyph:'R',color:'#d99769',x:10,y:5,hp:16,maxHp:16,mp:0,maxMp:0,atk:5,matk:0,def:1,spd:16,range:1,move:3,level:1,exp:0,acted:false,moved:false,guard:0},
+    {id:'brute',name:'Giáp Thạch',role:'QUÁI · ĐỠ ĐÒN',kind:'enemy',glyph:'G',color:'#bb796e',x:8,y:6,hp:29,maxHp:29,mp:0,maxMp:0,atk:8,matk:0,def:3,spd:6,range:1,move:2,level:1,exp:0,acted:false,moved:false,guard:0}
+  ];
+  const enemyCatalog = [
+    {id:'slime',name:'Bùn Đục',role:'QUÁI · NHÀO LỘN',glyph:'B',color:'#d97764',hp:19,atk:6,def:1,spd:7,range:1,move:2,ability:'split'},
+    {id:'stalker',name:'Kẻ Rình',role:'QUÁI · SĂN ĐUỔI',glyph:'R',color:'#d99769',hp:16,atk:5,def:1,spd:16,range:1,move:3,ability:'pounce'},
+    {id:'brute',name:'Giáp Thạch',role:'QUÁI · ĐỠ ĐÒN',glyph:'G',color:'#bb796e',hp:29,atk:8,def:3,spd:6,range:1,move:2,ability:'heavy'},
+    {id:'ash-archer',name:'Xạ Thủ Tro',role:'QUÁI · ĐÁNH XA',glyph:'X',color:'#d7aa62',hp:18,atk:6,def:1,spd:11,range:3,move:2,ability:'volley'},
+    {id:'stone-seer',name:'Thầy Bùa Đá',role:'QUÁI · PHÁP THUẬT',glyph:'M',color:'#91a9cc',hp:20,atk:7,def:1,spd:10,range:3,move:2,ability:'hex'},
+    {id:'thornling',name:'Mầm Gai',role:'QUÁI · ĐỘC',glyph:'Đ',color:'#9bb56e',hp:21,atk:6,def:2,spd:12,range:1,move:3,ability:'venom'}
+  ];
+  const bossTemplates = [
+    {id:'warden',name:'Vệ Chủ Cổng',role:'BOSS · HỘ VỆ CỔ',glyph:'V',color:'#e8a85f',hp:66,atk:12,def:4,spd:8,range:1,move:2,ability:'boss'},
+    {id:'ash-marshal',name:'Thống Lĩnh Tro',role:'BOSS · XẠ THỦ',glyph:'X',color:'#dc9067',hp:58,atk:11,def:3,spd:12,range:3,move:2,ability:'volley'},
+    {id:'stone-king',name:'Vua Thạch Tâm',role:'BOSS · ĐẠI ĐỊA QUÁI',glyph:'Đ',color:'#a7a76e',hp:82,atk:14,def:6,spd:5,range:1,move:1,ability:'heavy'},
+    {id:'minochoco',name:'MinoChoco',role:'BOSS · XÀ LINH CỔ',glyph:'蛇',color:'#5bc1a1',hp:110,atk:13,def:5,spd:10,range:1,move:2,ability:'minochoco',species:'snake'}
+  ];
+  const roomNames=['Cánh Đông','Hành Lang Tro','Vọng Lâu','Hầm Rễ Gai'];
+  const heroRoster = baseUnits.filter(unit=>unit.kind==='hero').map(unit=>({...unit}));
+  const starterRoster = heroRoster.map(unit=>({...unit}));
+  const gearCatalog = [
+    {name:'Kiếm Lò Rèn',type:'weapon',slot:'weapon',family:'sword',icon:'⚔',classIds:['swordsman','tank','archer','mage','cleric'],stats:{atk:2}},
+    {name:'Rìu Phá Thành',type:'weapon',slot:'weapon',family:'axe',icon:'⛏',classIds:['swordsman','tank','archer','mage','cleric'],stats:{atk:3,spd:-1}},
+    {name:'Kiếm Khiên Gác',type:'weapon',slot:'weapon',family:'sword',icon:'⚔',classIds:['swordsman','tank','archer','mage','cleric'],stats:{atk:1,def:1}},
+    {name:'Trượng Sao Rơi',type:'weapon',slot:'weapon',family:'staff',icon:'✦',classIds:['swordsman','tank','archer','mage','cleric'],stats:{matk:2,mp:2}},
+    {name:'Quyển Chú Tinh Vân',type:'weapon',slot:'weapon',family:'tome',icon:'▤',classIds:['swordsman','tank','archer','mage','cleric'],stats:{matk:3,mp:-1}},
+    {name:'Chuông Nguyện Ước',type:'weapon',slot:'weapon',family:'bell',icon:'♧',classIds:['swordsman','tank','archer','mage','cleric'],stats:{matk:1,mp:3}},
+    {name:'Cung Lá Bạc',type:'weapon',slot:'weapon',family:'bow',icon:'➶',classIds:['swordsman','tank','archer','mage','cleric'],stats:{atk:2,range:1}},
+    {name:'Nỏ Gió Rít',type:'weapon',slot:'weapon',family:'crossbow',icon:'⌁',classIds:['swordsman','tank','archer','mage','cleric'],stats:{atk:3,spd:-1}},
+    {name:'Khiên Gác Cổng',type:'shield',slot:'shield',icon:'⬡',classIds:['tank'],stats:{def:2,hp:3}},
+    {name:'Giáp Tấm',type:'armor',slot:'armor',icon:'▧',classIds:['tank'],stats:{def:2,hp:5}},
+    {name:'Áo Da Thợ Săn',type:'armor',slot:'armor',icon:'▧',classIds:['archer'],stats:{def:1,spd:1}},
+    {name:'Áo Choàng Sao',type:'armor',slot:'armor',icon:'▧',classIds:['mage','cleric'],stats:{def:1,mp:4,matk:1}},
+    {name:'Nhẫn Sinh Lực',type:'ring',slot:'ring',icon:'◉',classIds:['swordsman','tank','archer','mage','cleric'],stats:{hpPct:0.04}},
+    {name:'Nhẫn Sức Mạnh',type:'ring',slot:'ring',icon:'◉',classIds:['swordsman','tank','archer','mage','cleric'],stats:{atkPct:0.04}},
+    {name:'Nhẫn Tinh Thần',type:'ring',slot:'ring',icon:'◉',classIds:['swordsman','tank','archer','mage','cleric'],stats:{matkPct:0.04}}
+  ];
+  const classNames={swordsman:'Kiếm sĩ',tank:'Tank',archer:'Cung thủ',mage:'Pháp sư',cleric:'Tu sĩ'};
+  const slotNames={weapon:'Vũ khí',shield:'Khiên',armor:'Áo giáp',ring:'Nhẫn'};
+  const weaponFamilies={sword:{label:'Kiếm',stats:{atk:1}},axe:{label:'Rìu',stats:{atk:1}},staff:{label:'Trượng',stats:{matk:1}},tome:{label:'Sách phép',stats:{matk:1,mp:1}},bell:{label:'Chuông',stats:{matk:1}},bow:{label:'Cung',stats:{atk:1}},crossbow:{label:'Nỏ',stats:{atk:1}}};
+  const weaponXpPerRank=60;
+  const weaponXpPerHit=12;
+  const lootCatalog = [
+    {name:'Kiếm Lò Rèn',stat:'ATK',base:1,icon:'⚔'},
+    {name:'Cung Lá Bạc',stat:'ATK',base:1,icon:'➶'},
+    {name:'Trượng Sao Rơi',stat:'MATK',base:1,icon:'✦'},
+    {name:'Khiên Gác Cổng',stat:'DEF',base:1,icon:'⬡'},
+    {name:'Nhẫn Tim Lửa',stat:'HP',base:4,icon:'◉'},
+    {name:'Bùa Tốc Hành',stat:'SPD',base:1,icon:'»'}
+  ];
+  const rarityColors = ['#aeb8ad','#74bf82','#77b9e8','#c38bea','#efbd60'];
+  let units = [], selectedId = null, activeId = null, round = 1, turnIndex = 0, order = [], moveTiles = [], targetTiles = [], targeting = false, phase = 'ready', floor = 1, logEntries = [], paused = false, speedIndex = 0;
+  let inventory = [], floorBoss = false, runStarted = false, battleTimers = new Set(), roomGeneration = 0;
+  let partyIds=[], selectedHeroId=null, equipped={}, gold=0, shopStock=[], terrainMap=new Map(), portalPoints=[], triggeredTraps=new Set(), bossTelegraph=[], recruitCandidate=null, hasSave=false, currentTab='battle', saveEnabled=true;
+  const saveKey='tower-companions-save-v3';
+  const exitDoor = {x:11,y:3};
+  const playbackSpeeds = [1, 2, 4];
+  const actionDelay = milliseconds => milliseconds / playbackSpeeds[speedIndex];
+  let cellW = 0, cellH = 0, pixelRatio = 1;
+  let animationFrame=0, visualEffects=[];
+  const $ = id => document.getElementById(id);
+  const living = unit => unit.hp > 0;
+  const manhattan = (a,b) => Math.abs(a.x-b.x)+Math.abs(a.y-b.y);
+  const isOccupied = (x,y,except) => units.some(unit => living(unit) && !unit.inTransit && unit.id !== except && unit.x === x && unit.y === y);
+  const isWall = (x,y) => walls.has(`${x},${y}`);
+  const getUnit = id => units.find(unit => unit.id === id);
+  const heroes = () => units.filter(unit => unit.kind === 'hero' && living(unit));
+  const enemies = () => units.filter(unit => unit.kind === 'enemy' && living(unit));
+  const active = () => getUnit(activeId);
+  const inBounds = (x,y) => x>=0 && y>=0 && x<cols && y<rows;
+  function scheduleTimeout(callback,delay) {
+    const generation=roomGeneration;
+    const timer=window.setTimeout(()=>{battleTimers.delete(timer);if(generation===roomGeneration)callback();},delay);
+    battleTimers.add(timer);return timer;
+  }
+  function clearBattleTimers() {
+    roomGeneration++;
+    battleTimers.forEach(timer=>window.clearTimeout(timer));battleTimers.clear();
+  }
+  function makeGear(template,rarity=1,atFloor=floor) {
+    const stats={};const floorBonus=Math.floor(Math.max(0,atFloor-1)/4);
+    for(const [key,value] of Object.entries(template.stats)){
+      if(key.endsWith('Pct'))stats[key]=Math.min(.15,value+(rarity-1)*.012+Math.floor(Math.max(0,atFloor-1)/5)*.005);
+      else stats[key]=value+floorBonus+(rarity-1);
+    }
+    return {id:`gear-${Date.now()}-${Math.random().toString(16).slice(2)}`,name:template.name,type:template.type,slot:template.slot,family:template.family||null,icon:template.icon,classIds:[...template.classIds],stats,rarity,floor:atFloor,sellPrice:Math.max(3,Math.round((5+rarity*4+atFloor*1.2)*(template.type==='ring'?1.25:1)))};
+  }
+  function getGear(unitId,slot) {return equipped[unitId]?.[slot]||null;}
+  function getWeaponMastery(unit,family) {unit.weaponMastery=unit.weaponMastery||{};return unit.weaponMastery[family]||0;}
+  function weaponMasteryRank(unit,family) {return Math.floor(getWeaponMastery(unit,family)/weaponXpPerRank);}
+  function gainWeaponMastery(unit, amount=weaponXpPerHit) {
+    const weapon=getGear(unit.id,'weapon');
+    if(!weapon?.family||unit.kind!=='hero')return;
+    unit.weaponMastery=unit.weaponMastery||{};
+    const before=weaponMasteryRank(unit,weapon.family);
+    unit.weaponMastery[weapon.family]=(unit.weaponMastery[weapon.family]||0)+amount;
+    const after=weaponMasteryRank(unit,weapon.family);
+    if(after>before)addLog(`<b>${unit.name}</b> thuần thục ${weaponFamilies[weapon.family]?.label||weapon.family} bậc ${after}!`,'good');
+    const saved=heroRoster.find(hero=>hero.id===unit.id);
+    if(saved)saved.weaponMastery={...unit.weaponMastery};
+  }
+  function effectiveStats(unit) {
+    const result={hp:unit.maxHp,mp:unit.maxMp,atk:unit.atk,matk:unit.matk,def:unit.def,spd:unit.spd,range:unit.range,move:unit.move,hpPct:0,atkPct:0,matkPct:0};
+    if(unit.id==='swordsman')result.range=1;
+    if(unit.id==='archer')result.range=Math.max(3,result.range);
+    if(unit.id==='mage')result.range=Math.max(3,result.range);
+    if(unit.id==='tank'){result.hp+=8;result.def+=2;}
+    for(const slot of Object.keys(slotNames)){
+      const item=getGear(unit.id,slot);if(!item)continue;
+      for(const [key,value] of Object.entries(item.stats||{}))result[key]=(result[key]||0)+value;
+    }
+    const weapon=getGear(unit.id,'weapon'),family=weapon?.family,rank=family?weaponMasteryRank(unit,family):0;
+    if(family&&weaponFamilies[family])for(const [key,value] of Object.entries(weaponFamilies[family].stats))result[key]=(result[key]||0)+value*rank;
+    if(unit.id==='swordsman'||unit.id==='tank')result.range=1;
+    if(unit.id==='archer')result.range=Math.max(3,result.range);
+    if(unit.id==='mage')result.range=Math.max(3,result.range);
+    result.hp=Math.round(result.hp*(1+result.hpPct));result.atk=Math.max(1,Math.round(result.atk*(1+result.atkPct))-(unit.weakenTicks>0?2:0));result.matk=Math.max(0,Math.round(result.matk*(1+result.matkPct))-(unit.weakenTicks>0?2:0));
+    return result;
+  }
+  function updateMenuSummary() {
+    try{const data=JSON.parse(localStorage.getItem(saveKey)||'null');hasSave=!!data?.partyIds?.length;$('continueRunButton').disabled=!hasSave;$('saveSummary').textContent=hasSave?`TIẾN TRÌNH · TẦNG ${String(data.floor||1).padStart(2,'0')}`:'CHƯA CÓ TIẾN TRÌNH';}catch{hasSave=false;$('continueRunButton').disabled=true;$('saveSummary').textContent='CHƯA CÓ TIẾN TRÌNH';}
+  }
+  function saveProgress() {
+    if(!saveEnabled||!runStarted||!partyIds.length)return;
+    const data={version:2,floor,partyIds,selectedHeroId,heroRoster,equipped,inventory,gold,shopStock,defaultSpeed:speedIndex,units,walls:[...walls],terrain:[...terrainMap.entries()],portalPoints,triggeredTraps:[...triggeredTraps],bossTelegraph,floorBoss,round,phase,turnIndex,activeId,orderIds:order.map(unit=>unit.id)};
+    try{localStorage.setItem(saveKey,JSON.stringify(data));hasSave=true;if($('saveSummary'))updateMenuSummary();}catch{}
+  }
+  function showScreen(screen) {
+    $('titleView').hidden=screen!=='title';$('setupView').hidden=screen!=='setup';$('gameView').hidden=screen!=='game';
+    $('appHeader').classList.toggle('app-header-menu',screen!=='game');
+    $('appHeader').querySelector('.top-meta').hidden=screen!=='game';
+    if(screen==='game')draw();
+  }
+  let starterSelection=[],starterWeaponChoices={};
+  function renderStarterSetup() {
+    $('starterGrid').innerHTML=starterRoster.map(hero=>`<article class="starter-card ${starterSelection.includes(hero.id)?'chosen':''}" data-starter="${hero.id}"><div class="starter-mark"><span>${hero.glyph} · ${classNames[hero.id]}</span><span>${starterSelection.includes(hero.id)?'✓':'+'}</span></div><h3>${hero.name}</h3><p>HP ${hero.maxHp} · ATK ${hero.atk} · SPD ${hero.spd}<br>${hero.role}</p></article>`).join('');
+    $('starterLoadouts').innerHTML=starterSelection.map(id=>{const hero=starterRoster.find(member=>member.id===id);const options=gearCatalog.filter(item=>item.slot==='weapon');return `<label>${hero.name} · vũ khí<select data-starter-weapon="${id}">${options.map(item=>`<option value="${item.name}" ${starterWeaponChoices[id]===item.name?'selected':''}>${item.icon} ${item.name}</option>`).join('')}</select></label>`;}).join('');
+    $('startNewRunButton').disabled=starterSelection.length!==2;
+  }
+  function enterNewRun() {
+    if(starterSelection.length!==2)return;
+    clearBattleTimers();floor=1;partyIds=[...starterSelection];inventory=[];equipped={};gold=30;shopStock=generateShopStock();runStarted=true;speedIndex=Number($('defaultSpeed').value)||0;
+    starterRoster.forEach(base=>{const target=heroRoster.find(hero=>hero.id===base.id);Object.assign(target,{...base});});
+    for(const id of partyIds){const name=starterWeaponChoices[id]||gearCatalog.find(item=>item.slot==='weapon')?.name;const template=gearCatalog.find(item=>item.slot==='weapon'&&item.name===name);if(template){const item=makeGear(template,1,1);equipped[id]={[template.slot]:item};}}
+    selectedHeroId=partyIds[0];showScreen('game');showTab('battle');resetRoom(false);saveProgress();
+  }
+  function continueSavedRun() {
+    let data;try{data=JSON.parse(localStorage.getItem(saveKey)||'null');}catch{return;}
+    if(!data?.partyIds?.length)return;
+    clearBattleTimers();floor=Math.max(1,data.floor||1);partyIds=data.partyIds.filter(id=>heroRoster.some(hero=>hero.id===id));
+    data.heroRoster?.forEach(saved=>{const hero=heroRoster.find(member=>member.id===saved.id);if(hero)Object.assign(hero,saved);});
+    equipped=data.equipped||{};inventory=data.inventory||[];gold=data.gold||0;speedIndex=data.defaultSpeed||0;shopStock=data.shopStock||generateShopStock();runStarted=true;selectedHeroId=partyIds.includes(data.selectedHeroId)?data.selectedHeroId:partyIds[0]||null;
+    const snapshot=Array.isArray(data.units)&&data.units.some(unit=>unit.kind==='hero')&&['playing','exiting','ready'].includes(data.phase);
+    showScreen('game');showTab('battle');
+    if(snapshot){units=data.units;walls=new Set(data.walls||[]);terrainMap=new Map(data.terrain||[]);portalPoints=data.portalPoints||[];triggeredTraps=new Set(data.triggeredTraps||[]);bossTelegraph=data.bossTelegraph||[];floorBoss=!!data.floorBoss;round=data.round||1;turnIndex=data.turnIndex||0;activeId=data.activeId||null;order=(data.orderIds||[]).map(id=>getUnit(id)).filter(Boolean);phase=['playing','exiting'].includes(data.phase)?data.phase:'ready';paused=phase!=='ready';$('resultOverlay').classList.remove('show');$('recruitModal').hidden=true;$('floorNumber').textContent=String(floor).padStart(2,'0');$('roundNumber').textContent=String(round).padStart(2,'0');$('bossBadge').hidden=!floorBoss;$('roomTitle').textContent=`Phòng chiến đấu · ${terrainPresets[(floor-1)%terrainPresets.length].name}`;$('boardCoordinates').textContent=`12 × 8 · TẦNG ${String(floor).padStart(2,'0')} · CỬA RA BÊN PHẢI`;renderAll();}
+    else resetRoom(false);
+  }
+  function showTab(tab) {
+    currentTab=tab;
+    $('battleTab').hidden=tab!=='battle';$('teamTab').hidden=tab!=='team';$('inventoryTab').hidden=tab!=='inventory';$('shopTab').hidden=tab!=='shop';
+    document.querySelectorAll('.game-tab[data-tab]').forEach(button=>button.classList.toggle('active',button.dataset.tab===tab));
+    if(tab==='team')renderTeamTab();if(tab==='inventory')renderInventoryTab();if(tab==='shop')renderShopTab();draw();
+  }
+  function moveUnitTo(unit,x,y) {
+    unit.animation={fromX:unit.x,fromY:unit.y,toX:x,toY:y,start:performance.now(),duration:320};
+    unit.x=x;unit.y=y;draw();
+    if(phase==='playing')resolveTerrainEntry(unit);
+  }
+  function isBlockedTerrain(x,y) {const kind=terrainMap.get(`${x},${y}`)?.type;return kind==='water'||kind==='abyss';}
+  function buildTerrain() {
+    const layout=terrainPresets[(floor-1)%terrainPresets.length];terrainMap=new Map(layout.terrain.map(([key,type])=>[key,{type}]));
+    portalPoints=[...terrainMap.entries()].filter(([,tile])=>tile.type==='portal').map(([key])=>key.split(',').map(Number));triggeredTraps=new Set();
+    const extraTrap=`${(floor*7)%8+2},${(floor*3)%6+1}`;
+    if(!terrainMap.has(extraTrap)&&!walls.has(extraTrap)&&extraTrap!=='11,3')terrainMap.set(extraTrap,{type:'trap'});
+    const extraWall=`${(floor*3)%5+4},${(floor*2)%5+1}`;
+    if(!terrainMap.has(extraWall)&&!walls.has(extraWall)&&!['1,3','1,5','2,4','11,3'].includes(extraWall))walls.add(extraWall);
+    // Không đặt tường lên địa hình đặc biệt; giữ thông thoáng các ô cạnh cầu để không bị kẹt lối sang sông/vực.
+    for(const key of [...walls])if(terrainMap.has(key))walls.delete(key);
+    for(const [key,tile] of terrainMap){
+      if(tile.type==='bridge'){
+        const [bx,by]=key.split(',').map(Number);
+        for(const [nx,ny] of [[bx,by-1],[bx+1,by],[bx,by+1],[bx-1,by]]){
+          if(inBounds(nx,ny)&&!terrainMap.has(`${nx},${ny}`))walls.delete(`${nx},${ny}`);
+        }
+      }
+    }
+    // Luôn bảo đảm lối vào và cửa ra không bị tường sinh ngẫu nhiên chặn.
+    for(const key of ['1,3','1,4','1,5','2,3','2,5','10,3','10,2','10,4','11,3'])walls.delete(key);
+    return layout.name;
+  }
+  function resolveTerrainEntry(unit) {
+    const key=`${unit.x},${unit.y}`,tile=terrainMap.get(key);if(!tile)return;
+    if(tile.type==='trap'&&!triggeredTraps.has(key)){
+      triggeredTraps.add(key);unit.hp=Math.max(0,unit.hp-5);addLog(`<b>${unit.name}</b> giẫm bẫy, mất 5 HP!`,'enemy');triggerEffect(unit,unit,'enemy',5);
+    }else if(tile.type==='lava'){
+      unit.hp=Math.max(0,unit.hp-4);addLog(`<b>${unit.name}</b> bước qua dung nham, mất 4 HP.`,'enemy');triggerEffect(unit,unit,'fire',4);
+    }
+    if(tile.type==='portal'&&portalPoints.length===2){
+      const other=portalPoints.find(([x,y])=>x!==unit.x||y!==unit.y);
+      if(other&&!isOccupied(other[0],other[1],unit.id)){unit.animation={fromX:unit.x,fromY:unit.y,toX:other[0],toY:other[1],start:performance.now(),duration:420};unit.x=other[0];unit.y=other[1];addLog(`<b>${unit.name}</b> dịch chuyển sang tòa tháp bên kia.`,'good');}
+    }
+  }
+  function triggerEffect(attacker,target,type='strike',damage=0) {
+    const colors={strike:'#f5e59a',arrow:'#afe8c6',fire:'#83d9ef',bash:'#f2b967',spell:'#c3a4ff',enemy:'#ef8270',heal:'#a9e98c'};
+    visualEffects.push({fromX:attacker.x,fromY:attacker.y,toX:target.x,toY:target.y,type,damage,color:colors[type]||colors.strike,start:performance.now(),duration:520});
+    draw();
+  }
+
+  function addLog(message,type='') {
+    logEntries.unshift({message,type}); logEntries=logEntries.slice(0,24);
+    $('combatLog').innerHTML=logEntries.map(entry=>`<div class="log-line ${entry.type}">${entry.message}</div>`).join('');
+  }
+  function makeFloorUnits() {
+    walls=new Set(wallLayouts[floor===1?0:1+Math.floor(Math.random()*(wallLayouts.length-1))]);
+    buildTerrain();
+    const heroSpawns=baseUnits.filter(unit=>unit.kind==='hero');
+    const party=heroRoster.filter(member=>partyIds.includes(member.id)).map((member,index)=>({...member,x:heroSpawns[index].x,y:heroSpawns[index].y,hp:effectiveStats(member).hp,mp:effectiveStats(member).mp,acted:false,moved:false,guard:0,inTransit:false}));
+    const spawnPoints=[[9,2],[10,5],[8,6],[9,6],[6,2],[6,5],[10,1],[8,7],[11,6]];
+    const scale=floor<=3?0.72+floor*.08:0.96+Math.max(0,floor-4)*.065;
+    floorBoss=floor===10||(floor>=4&&Math.random()<(floor%5===0?0.72:(floor%5===4||floor%5===1?0.24:0)));
+    let foes=[];
+    if(floor===1){
+      foes=baseUnits.filter(unit=>unit.kind==='enemy').slice(0,2).map(unit=>({...unit,hp:Math.round(unit.hp*.78),maxHp:Math.round(unit.maxHp*.78),atk:Math.max(3,Math.round(unit.atk*.72)),def:Math.max(0,unit.def-1),ability:unit.id==='stalker'?'pounce':'split',mp:0,maxMp:0,cooldown:0,stun:0,poisonTicks:0,inTransit:false}));
+    }else{
+      const count=floor<=3?2:Math.min(6,2+Math.floor((floor-1)/4));
+      for(let index=0;index<count;index++){
+        const template=enemyCatalog[Math.floor(Math.random()*enemyCatalog.length)];
+        const [x,y]=spawnPoints[index];
+        foes.push({...template,id:`${template.id}-${index}`,x,y,hp:Math.round(template.hp*scale),maxHp:Math.round(template.hp*scale),atk:Math.round(template.atk*scale),def:template.def+Math.floor((floor-1)/6),spd:template.spd,range:template.range,move:template.move,level:floor,mp:template.ability==='hex'?10:0,maxMp:template.ability==='hex'?10:0,matk:template.ability==='hex'?8+Math.floor(floor/4):0,kind:'enemy',exp:0,acted:false,moved:false,guard:0,cooldown:0,stun:0,poisonTicks:0,inTransit:false});
+      }
+    }
+    if(floorBoss){const template=floor===10?bossTemplates.find(boss=>boss.id==='minochoco'):bossTemplates[Math.floor(Math.random()*bossTemplates.length)],[x,y]=[10,3];foes.push({...template,id:`${template.id}-${floor}`,x,y,hp:Math.round(template.hp*scale),maxHp:Math.round(template.hp*scale),atk:Math.round(template.atk*scale),def:template.def+Math.floor((floor-1)/7),mp:0,maxMp:0,matk:0,kind:'enemy',level:floor,exp:0,acted:false,moved:false,guard:0,cooldown:0,stun:0,poisonTicks:0,inTransit:false,boss:true,bossCycle:0,pendingBossSkill:null,roarMarks:[]});}
+    return [...party,...foes];
+  }
+  function detailMarkup(unit) {
+    if(!unit)return '<div class="loot-empty">Chọn nhân vật để xem thông tin.</div>';
+    const stats=effectiveStats(unit),gearText=Object.keys(slotNames).map(slot=>`${slotNames[slot]}: ${getGear(unit.id,slot)?.name||'Trống'}`).join('<br>');
+    const skill={swordsman:'Chém Mạnh · 3 MP, sát thương vật lý tăng cường ở cự ly 1 ô.',tank:'Khiên Xung Kích · 2 MP, gây sát thương và choáng; HP/DEF rất cao.',archer:'Xuyên Giáp · 2 MP, bắn mạnh khi tank còn sống.',mage:'Hỏa Cầu · 5 MP, sát thương phép tầm xa.',cleric:'Ánh Bình Minh · 4 MP hồi máu; Thánh Quang · 3 MP gây sát thương phép.'}[unit.id]||'Đòn đánh tay không';
+    return `<div class="detail-head"><div><strong>${unit.name}</strong><div class="detail-role">${unit.role} · CẤP ${unit.level} · EXP ${unit.exp}/40</div></div><span class="rarity-stars" style="color:${unit.hp/stats.hp<.3?'var(--red)':'var(--green)'}">HP ${unit.hp}/${stats.hp}</span></div><div class="stat-grid"><div class="stat-cell"><span>HP TỐI ĐA</span><b>${stats.hp}</b></div><div class="stat-cell"><span>MP</span><b>${unit.mp}/${stats.mp}</b></div><div class="stat-cell"><span>ATK</span><b>${stats.atk}</b></div><div class="stat-cell"><span>MATK</span><b>${stats.matk}</b></div><div class="stat-cell"><span>DEF</span><b>${stats.def}</b></div><div class="stat-cell"><span>SPD</span><b>${stats.spd}</b></div><div class="stat-cell"><span>TẦM</span><b>${stats.range}</b></div><div class="stat-cell"><span>DI CHUYỂN</span><b>${stats.move}</b></div><div class="stat-cell"><span>ĐÒN ĐÁNH</span><b>${getGear(unit.id,'weapon')?getGear(unit.id,'weapon').name:'Tay không'}</b></div></div><div class="item-meta">${gearText}<br>THUẦN THỤC: ${Object.entries(unit.weaponMastery||{}).map(([family,xp])=>`${weaponFamilies[family]?.label||family} ${weaponMasteryRank(unit,family)} (${xp%weaponXpPerRank}/${weaponXpPerRank} EXP)`).join(' · ')||'Chưa có'}</div><div class="skill-line">${skill}</div>`;
+  }
+  function recalculateHealth(unit,previousMax=unit.maxHp) {
+    const nextMax=effectiveStats(unit).hp,ratio=previousMax?unit.hp/previousMax:1;unit.hp=Math.min(nextMax,Math.ceil(nextMax*ratio));
+  }
+  function equipFromInventory(unitId,itemId) {
+    const unit=getUnit(unitId)||heroRoster.find(hero=>hero.id===unitId),index=inventory.findIndex(item=>item.id===itemId);if(!unit||index<0)return false;
+    const item=inventory[index];if(item.slot!=='weapon'&&!item.classIds.includes(unit.id))return false;const previousMax=effectiveStats(unit).hp;
+    equipped[unitId]=equipped[unitId]||{};const previous=equipped[unitId][item.slot];if(previous)inventory.push(previous);
+    inventory.splice(index,1);equipped[unitId][item.slot]=item;recalculateHealth(unit,previousMax);saveProgress();renderAll();return true;
+  }
+  function renderTeamTab() {
+    const party=partyIds.map(id=>getUnit(id)||heroRoster.find(hero=>hero.id===id)).filter(Boolean),unit=party.find(hero=>hero.id===selectedHeroId)||party[0];if(unit)selectedHeroId=unit.id;
+    $('teamTab').innerHTML=`<div class="management-head"><div><h2>Đội hình & trang bị</h2><p>Chọn một thành viên để kiểm tra chỉ số và đổi từng ô trang bị.</p></div><span class="price">${gold} ◈</span></div><div class="management-layout"><div class="management-roster">${party.map(hero=>`<div class="unit-card ${hero.id===selectedHeroId?'selected':''}" data-manage-hero="${hero.id}"><div class="portrait" style="background:${hero.color}">${hero.glyph}</div><div class="unit-copy"><div class="unit-name">${hero.name}</div><div class="unit-role">${classNames[hero.id]} · LV ${hero.level}</div></div><span class="unit-level">${hero.hp}/${effectiveStats(hero).hp}</span></div>`).join('')}</div><div class="management-main">${detailMarkup(unit)}<h3 class="panel-title" style="margin-top:18px">VỊ TRÍ TRANG BỊ</h3>${unit?Object.entries(slotNames).map(([slot,label])=>{const current=getGear(unit.id,slot),options=inventory.filter(item=>item.slot===slot&&(slot==='weapon'||item.classIds.includes(unit.id)));return `<div class="gear-slot"><label>${label}</label><select data-gear-slot="${slot}" data-gear-hero="${unit.id}"><option value="">${current?`Đang dùng · ${current.name}`:'Trống · tay không'}</option>${options.map(item=>`<option value="${item.id}">${item.name} · ${'★'.repeat(item.rarity)} · +${Object.entries(item.stats).map(([key,value])=>`${key} ${String(value).includes('.')?Math.round(value*100)+'%':value}`).join(', ')}</option>`).join('')}</select>${current?`<button class="small-action" data-unequip="${slot}" data-hero="${unit.id}">Tháo</button>`:'<span class="gear-empty">—</span>'}</div>`;}).join(''):'<div class="loot-empty">Đội hình trống.</div>'}</div></div>`;
+    $('teamTab').querySelectorAll('[data-manage-hero]').forEach(card=>card.addEventListener('click',()=>{selectedHeroId=card.dataset.manageHero;renderTeamTab();}));
+    $('teamTab').querySelectorAll('[data-gear-slot]').forEach(select=>select.addEventListener('change',()=>{if(select.value)equipFromInventory(select.dataset.gearHero,select.value);}));
+    $('teamTab').querySelectorAll('[data-unequip]').forEach(button=>button.addEventListener('click',()=>{const unitId=button.dataset.hero,slot=button.dataset.unequip,item=equipped[unitId]?.[slot],unit=getUnit(unitId)||heroRoster.find(hero=>hero.id===unitId);if(!item||!unit)return;const previousMax=effectiveStats(unit).hp;inventory.push(item);delete equipped[unitId][slot];recalculateHealth(unit,previousMax);saveProgress();renderAll();}));
+  }
+  function renderInventoryTab() {
+    const filter=$('inventoryFilter')?.value||'all',sort=$('inventorySort')?.value||'rare';let items=[...inventory];
+    if(filter!=='all')items=items.filter(item=>item.type===filter);items.sort(sort==='rare'?(a,b)=>b.rarity-a.rarity:sort==='value'?(a,b)=>b.sellPrice-a.sellPrice:(a,b)=>a.name.localeCompare(b.name,'vi'));
+    const choices=partyIds.map(id=>heroRoster.find(hero=>hero.id===id)).filter(Boolean);
+    $('inventoryTab').innerHTML=`<div class="management-head"><div><h2>Túi đồ</h2><p>${inventory.length} món · bán đồ cũ để có vàng mua trang bị mới.</p></div><span class="price">${gold} ◈</span></div><div class="filter-row"><select class="filter-select" id="inventoryFilter"><option value="all">Tất cả loại</option><option value="weapon">Vũ khí</option><option value="shield">Khiên</option><option value="armor">Áo giáp</option><option value="ring">Nhẫn</option></select><select class="filter-select" id="inventorySort"><option value="rare">Hiếm nhất trước</option><option value="value">Giá bán cao trước</option><option value="name">Tên A–Z</option></select><select class="filter-select" id="inventoryHero">${choices.map(hero=>`<option value="${hero.id}" ${hero.id===selectedHeroId?'selected':''}>Trang bị cho ${hero.name}</option>`).join('')}</select></div><div class="item-grid">${items.length?items.map(item=>`<article class="inventory-item"><span class="item-icon" style="color:${rarityColors[item.rarity-1]}">${item.icon}</span><div class="item-copy"><strong>${item.name}</strong><div class="item-meta">${slotNames[item.slot]} · ${Object.entries(item.stats).map(([key,value])=>`${key.replace('Pct',' %')} +${String(value).includes('.')?Math.round(value*100)+'%':value}`).join(' · ')}<br><span class="rarity-stars" style="color:${rarityColors[item.rarity-1]}">${'★'.repeat(item.rarity)}${'☆'.repeat(5-item.rarity)}</span> · tầng ${item.floor}</div></div><div class="item-actions"><button class="small-action" data-equip-item="${item.id}" ${item.slot==='weapon'||item.classIds.includes(selectedHeroId)?'':'disabled'}>Trang bị</button><button class="small-action" data-sell-item="${item.id}">Bán · ${item.sellPrice} ◈</button></div></article>`).join(''):'<div class="loot-empty">Không có món nào trong nhóm này.</div>'}</div>`;
+    $('inventoryFilter').value=filter;$('inventorySort').value=sort;$('inventoryHero').addEventListener('change',event=>{selectedHeroId=event.target.value;renderInventoryTab();});
+    $('inventoryFilter').addEventListener('change',renderInventoryTab);$('inventorySort').addEventListener('change',renderInventoryTab);
+    $('inventoryTab').querySelectorAll('[data-equip-item]').forEach(button=>button.addEventListener('click',()=>equipFromInventory(selectedHeroId,button.dataset.equipItem)));
+    $('inventoryTab').querySelectorAll('[data-sell-item]').forEach(button=>button.addEventListener('click',()=>{const index=inventory.findIndex(item=>item.id===button.dataset.sellItem);if(index<0)return;gold+=inventory[index].sellPrice;inventory.splice(index,1);saveProgress();renderInventoryTab();renderLoot();}));
+  }
+  function renderShopTab() {
+    $('shopTab').innerHTML=`<div class="management-head"><div><h2>Cửa hàng xoay tua</h2><p>Hàng đổi khi sang tầng. Món đắt hơn thường hiếm hơn, nhưng chỉ số tăng vừa phải.</p></div><span class="price">${gold} ◈</span></div><div class="shop-grid">${shopStock.map(item=>`<article class="shop-item"><span class="item-icon" style="color:${rarityColors[item.rarity-1]}">${item.icon}</span><div class="item-copy"><strong>${item.name}</strong><div class="item-meta">${slotNames[item.slot]} · ${Object.entries(item.stats).map(([key,value])=>`${key} +${String(value).includes('.')?Math.round(value*100)+'%':value}`).join(' · ')}<br><span class="rarity-stars" style="color:${rarityColors[item.rarity-1]}">${'★'.repeat(item.rarity)}${'☆'.repeat(5-item.rarity)}</span> · tầng ${item.floor}</div></div><div class="item-actions"><span class="price">${item.price} ◈</span><button class="small-action" data-buy-item="${item.id}" ${gold>=item.price?'':'disabled'}>Mua</button></div></article>`).join('')}</div>`;
+    $('shopTab').querySelectorAll('[data-buy-item]').forEach(button=>button.addEventListener('click',()=>{const index=shopStock.findIndex(item=>item.id===button.dataset.buyItem);if(index<0||gold<shopStock[index].price)return;const item=shopStock.splice(index,1)[0];gold-=item.price;delete item.price;inventory.unshift(item);saveProgress();renderShopTab();renderLoot();}));
+  }
+  function recruitAfterFloor() {
+    const available=heroRoster.filter(hero=>!partyIds.includes(hero.id));
+    if(partyIds.length>=5||!available.length||Math.random()>.36){resetRoom(true);return;}
+    recruitCandidate=available[Math.floor(Math.random()*available.length)];phase='recruit';$('recruitName').textContent=`${recruitCandidate.name} · ${classNames[recruitCandidate.id]}`;$('recruitDescription').textContent=`${recruitCandidate.role}. HP ${recruitCandidate.maxHp}, ATK ${recruitCandidate.atk}, DEF ${recruitCandidate.def}, SPD ${recruitCandidate.spd}. Mời vào đội hình?`; $('recruitModal').hidden=false;renderAll();
+  }
+  function resolveRecruit(accept) {
+    if(accept&&recruitCandidate&&!partyIds.includes(recruitCandidate.id)){partyIds.push(recruitCandidate.id);selectedHeroId=recruitCandidate.id;addLog(`${recruitCandidate.name} gia nhập đội.`,'good');}
+    $('recruitModal').hidden=true;recruitCandidate=null;phase='ready';saveProgress();resetRoom(true);
+  }
+  function rollLoot(enemy) {
+    const earnedGold=enemy.boss?30+Math.floor(Math.random()*16):3+Math.floor(Math.random()*5);
+    gold+=earnedGold;addLog(`<b>${enemy.name}</b> rơi ${earnedGold} vàng.`,'good');
+    const dropChance=enemy.boss?0.94:0.27;
+    if(Math.random()>dropChance){addLog(`${enemy.name} không rơi trang bị.`);return;}
+    const weights=enemy.boss?[4,12,24,34,26]:[56,25,12,5,2];
+    let roll=Math.random()*weights.reduce((sum,value)=>sum+value,0),rarity=1;
+    for(let index=0;index<weights.length;index++){roll-=weights[index];if(roll<0){rarity=index+1;break;}}
+    const template=gearCatalog[Math.floor(Math.random()*gearCatalog.length)];
+    const item=makeGear(template,rarity,floor);
+    inventory.unshift(item);inventory=inventory.slice(0,30);
+    addLog(`<b>${enemy.name}</b> rơi ${item.name} · ${'★'.repeat(rarity)}${'☆'.repeat(5-rarity)}.`,'good');
+    saveProgress();
+  }
+  function generateShopStock() {
+    return Array.from({length:6},()=>{const template=gearCatalog[Math.floor(Math.random()*gearCatalog.length)];const rarity=Math.random()<.78?1:2;const item=makeGear(template,rarity,floor);item.price=Math.round(item.sellPrice*1.65);return item;});
+  }
+  function resetRoom(autoStart=false) {
+    clearBattleTimers();visualEffects=[];
+    bossTelegraph=[];
+    units=makeFloorUnits();
+    selectedHeroId=partyIds.includes(selectedHeroId)?selectedHeroId:partyIds[0]||null;selectedId=selectedHeroId;activeId=null;round=1;turnIndex=0;order=[];phase='ready';paused=false;runStarted=runStarted||autoStart;targeting=false;moveTiles=[];targetTiles=[];logEntries=[];
+    $('resultOverlay').classList.remove('show');
+    $('floorNumber').textContent=String(floor).padStart(2,'0');
+    $('bossBadge').hidden=!floorBoss;
+    $('roomTitle').textContent=`Phòng chiến đấu · ${terrainPresets[(floor-1)%terrainPresets.length].name}`;
+    $('boardCoordinates').textContent=`12 × 8 · TẦNG ${String(floor).padStart(2,'0')} · CỬA RA BÊN PHẢI`;
+    $('roundNumber').textContent='01';
+    $('battleMessage').textContent=floorBoss?'Boss xuất hiện ở tầng này. Hãy sẵn sàng.':'Đội hình đã sẵn sàng. Bắt đầu để xem trận đấu tự diễn ra.';
+    addLog(`Đội thám hiểm đã sẵn sàng tại <b>tầng ${floor}</b>${floorBoss?' · BOSS xuất hiện!':''}.`,floorBoss?'enemy':'good');
+    addLog('Nhấn Bắt đầu để xem cả đội và quái tự chiến đấu.');
+    renderAll();
+    // Mỗi tầng/phòng luôn chờ người chơi bấm BẮT ĐẦU; không tự chạy liên tục.
+  }
+  function buildOrder() {
+    phase='playing';
+    order=units.filter(living).sort((a,b)=>effectiveStats(b).spd-effectiveStats(a).spd || (a.kind==='hero'?-1:1));
+    turnIndex=0;
+    advanceToNextTurn();
+  }
+  function startOrPause() {
+    if(phase==='ready'){paused=false;runStarted=true;buildOrder();addLog('Trận đấu bắt đầu. AI đang điều khiển toàn bộ đơn vị.','good');renderAll();return;}
+    if(phase!=='playing'&&phase!=='exiting')return;
+    paused=!paused;
+    if(!paused){if(phase==='exiting')stepExit();else{const unit=active();if(unit&&!unit.acted)scheduleActiveTurn(unit);else advanceToNextTurn();}}
+    $('battleMessage').textContent=paused?'Đã tạm dừng trận đấu.':'Trận đấu đang tự diễn ra.';
+    renderAll();
+  }
+  function scheduleActiveTurn(unit) {
+    if(!unit||paused||phase!=='playing')return;
+    scheduleTimeout(()=>{if(paused||phase!=='playing'||activeId!==unit.id)return;if(unit.kind==='enemy')enemyTurn(unit.id);else heroTurn(unit.id);},actionDelay(unit.kind==='enemy'?380:460));
+  }
+  function advanceToNextTurn() {
+    if(phase!=='playing'||paused)return;
+    if(enemies().length===0){beginExit();return;}
+    if(heroes().length===0){finish(false);return;}
+    let attempts=0;
+    while(attempts<=order.length){
+      if(turnIndex>=order.length){round++;order=units.filter(living).sort((a,b)=>effectiveStats(b).spd-effectiveStats(a).spd || (a.kind==='hero'?-1:1));turnIndex=0;$('roundNumber').textContent=String(round).padStart(2,'0');order.forEach(unit=>{unit.acted=false;unit.moved=false;unit.guard=0;if(unit.weakenTicks>0)unit.weakenTicks--;});}
+      const candidate=order[turnIndex];
+      if(candidate && living(candidate) && !candidate.acted){activeId=candidate.id;candidate.moved=false;candidate.guard=0;targeting=false;moveTiles=candidate.kind==='hero'?reachable(candidate):[];targetTiles=[];selectedId=candidate.kind==='hero'?candidate.id:selectedId;renderAll();
+        $('battleMessage').textContent=`${candidate.kind==='hero'?'Đồng đội':'Quái'} ${candidate.name} đang hành động.`;
+        scheduleActiveTurn(candidate);
+        return;
+      }
+      turnIndex++;attempts++;
+    }
+    order.forEach(unit=>unit.acted=false);turnIndex=0;advanceToNextTurn();
+  }
+  function finishUnit(unit, message) {
+    if(!unit)return;unit.acted=true;targeting=false;moveTiles=[];targetTiles=[];
+    if(message)addLog(message,'good');
+    renderAll();turnIndex++;scheduleTimeout(advanceToNextTurn,actionDelay(220));
+  }
+  function beginExit() {
+    if(phase==='exiting'||phase!=='playing')return;
+    phase='exiting';activeId=null;order=[];turnIndex=0;
+    addLog('Cửa bên đã mở. Đội hình đang tự rút sang tầng tiếp theo.','good');
+    $('battleMessage').textContent='Đã dọn sạch quái. Cả đội đang đi qua cửa bên.';
+    renderAll();scheduleTimeout(stepExit,actionDelay(450));
+  }
+  function stepExit() {
+    if(phase!=='exiting'||paused)return;
+    const unit=heroes().find(hero=>!hero.inTransit);
+    if(!unit){
+      floor++;addLog(`Đội hình đã qua cửa. Tiến lên tầng ${floor}.`,'good');
+      shopStock=generateShopStock();saveProgress();recruitAfterFloor();return;
+    }
+    if(unit.x===exitDoor.x&&unit.y===exitDoor.y){unit.inTransit=true;addLog(`<b>${unit.name}</b> đi qua cửa bên.`,'good');renderAll();scheduleTimeout(stepExit,actionDelay(300));return;}
+    const step=shortestNextStep(unit,exitDoor);
+    if(!step){addLog(`${unit.name} đang tìm lối vòng đến cửa.`);scheduleTimeout(stepExit,actionDelay(500));return;}
+    moveUnitTo(unit,step.x,step.y);
+    if(unit.x===exitDoor.x&&unit.y===exitDoor.y){unit.inTransit=true;addLog(`<b>${unit.name}</b> đi qua cửa bên.`,'good');}
+    renderAll();scheduleTimeout(stepExit,actionDelay(230));
+  }
+  function neighbors(x,y) {return [[x,y-1],[x+1,y],[x,y+1],[x-1,y]].filter(([nx,ny])=>inBounds(nx,ny)&&!isWall(nx,ny)&&!isBlockedTerrain(nx,ny));}
+  function reachable(unit) {
+    const queue=[{x:unit.x,y:unit.y,d:0}], seen=new Map([[`${unit.x},${unit.y}`,0]]), result=[],moveLimit=effectiveStats(unit).move;
+    while(queue.length){const current=queue.shift();if(current.d>=moveLimit)continue;
+      for(const [x,y] of neighbors(current.x,current.y)){
+        const key=`${x},${y}`;if(seen.has(key)||isOccupied(x,y,unit.id))continue;
+        seen.set(key,current.d+1);queue.push({x,y,d:current.d+1});result.push({x,y,d:current.d+1});
+      }
+    }return result;
+  }
+  function clearShot(attacker,target) {
+    if(attacker.x===target.x){const step=attacker.y<target.y?1:-1;for(let y=attacker.y+step;y!==target.y;y+=step)if(isWall(attacker.x,y)||isBlockedTerrain(attacker.x,y))return false;return true;}
+    if(attacker.y===target.y){const step=attacker.x<target.x?1:-1;for(let x=attacker.x+step;x!==target.x;x+=step)if(isWall(x,attacker.y)||isBlockedTerrain(x,attacker.y))return false;return true;}
+    const sx=attacker.x<target.x?1:-1,sy=attacker.y<target.y?1:-1,routeA=[],routeB=[];
+    for(let x=attacker.x+sx;x!==target.x;x+=sx)routeA.push([x,attacker.y]);for(let y=attacker.y+sy;y!==target.y;y+=sy)routeA.push([target.x,y]);
+    for(let y=attacker.y+sy;y!==target.y;y+=sy)routeB.push([attacker.x,y]);for(let x=attacker.x+sx;x!==target.x;x+=sx)routeB.push([x,target.y]);
+    return [routeA,routeB].some(route=>route.every(([x,y])=>!isWall(x,y)&&!isBlockedTerrain(x,y)));
+  }
+  function canAttack(attacker,target) {return living(target)&&manhattan(attacker,target)<=effectiveStats(attacker).range&&manhattan(attacker,target)>0&&!isWall(target.x,target.y)&&clearShot(attacker,target);}
+  function attackTargets(unit) {
+    if(unit.kind==='hero')return enemies().filter(target=>canAttack(unit,target));
+    return heroes().filter(target=>canAttack(unit,target));
+  }
+  function tileAt(clientX,clientY) {
+    const rect=canvas.getBoundingClientRect();const x=Math.floor((clientX-rect.left)*canvas.width/rect.width/cellW);const y=Math.floor((clientY-rect.top)*canvas.height/rect.height/cellH);return {x,y};
+  }
+  function handleBoardClick(event) {
+    if(phase!=='playing')return;const {x,y}=tileAt(event.clientX,event.clientY);if(!inBounds(x,y))return;
+    const clicked=units.find(unit=>living(unit)&&unit.x===x&&unit.y===y);
+    const unit=active();
+    if(targeting&&unit&&unit.kind==='hero'&&clicked&&clicked.kind==='enemy'&&targetTiles.some(tile=>tile.x===x&&tile.y===y)){performHeroAttack(unit,clicked);return;}
+    if(clicked&&clicked.kind==='hero'){selectedId=clicked.id;if(clicked.id===activeId&&unit&&!unit.acted){moveTiles=unit.moved?[]:reachable(unit);targetTiles=[];}else{moveTiles=[];targetTiles=[];}renderAll();return;}
+    if(unit&&unit.kind==='hero'&&unit.id===selectedId&&!unit.acted&&!unit.moved&&moveTiles.some(tile=>tile.x===x&&tile.y===y)){
+      unit.x=x;unit.y=y;unit.moved=true;targeting=false;moveTiles=[];targetTiles=attackTargets(unit).map(target=>({x:target.x,y:target.y}));
+      addLog(`<b>${unit.name}</b> di chuyển đến (${x+1}, ${y+1}).`);$('battleMessage').textContent=`${unit.name} đã di chuyển. Có thể tấn công hoặc dùng kỹ năng.`;renderAll();return;
+    }
+    if(clicked&&clicked.kind==='enemy'&&unit&&unit.kind==='hero'&&unit.id===activeId&&!unit.acted){selectedId=unit.id;targeting=true;targetTiles=attackTargets(unit).map(target=>({x:target.x,y:target.y}));renderAll();}
+  }
+  function performHeroAttack(attacker,target) {
+    if(attacker.id==='archer'&&!units.some(unit=>unit.id==='tank'&&living(unit))){addLog('Cung thủ không thể bắn: cần ít nhất một tank còn sống.','enemy');return;}
+    const stats=effectiveStats(attacker),targetStats=effectiveStats(target),weapon=getGear(attacker.id,'weapon');
+    gainWeaponMastery(attacker);
+    const magical=attacker.id==='mage'||attacker.id==='cleric';
+    const power=magical?stats.matk:stats.atk;
+    const damage=Math.max(1,power-targetStats.def+(weapon?0:-2));
+    const effect=attacker.id==='archer'?'arrow':magical?'spell':'strike';
+    triggerEffect(attacker,target,effect,damage);target.hp=Math.max(0,target.hp-damage);
+    addLog(`<b>${attacker.name}</b> ${magical?'thi triển phép':'tấn công'}${weapon?' bằng '+weapon.name:''}, gây <b>${damage}</b> sát thương lên ${target.name}${target.hp===0?' · GỤC!':''}.`,target.hp===0?'good':'');
+    if(target.hp===0){awardExp(attacker);rollLoot(target);}
+    finishUnit(attacker);
+  }
+  function awardExp(killer) {
+    heroes().forEach(unit=>{unit.exp+=killer.id===unit.id?18:10;if(unit.exp>=40){unit.exp-=40;unit.level++;unit.maxHp+=unit.id==='tank'?7:unit.id==='swordsman'?5:3;unit.maxMp+=unit.id==='mage'||unit.id==='cleric'?4:unit.id==='tank'?2:1;unit.atk+=unit.id==='archer'||unit.id==='swordsman'?2:unit.id==='tank'?1:0;unit.matk+=unit.id==='mage'?2:unit.id==='cleric'?1:0;unit.def+=unit.id==='tank'?2:unit.id==='swordsman'?1:0;unit.hp=Math.min(effectiveStats(unit).hp,unit.hp+6);addLog(`<b>${unit.name}</b> lên cấp ${unit.level}!`,'good');}const saved=heroRoster.find(member=>member.id===unit.id);if(saved)Object.assign(saved,{level:unit.level,exp:unit.exp,maxHp:unit.maxHp,maxMp:unit.maxMp,atk:unit.atk,matk:unit.matk,def:unit.def,spd:unit.spd,weaponMastery:{...(unit.weaponMastery||{})}});});
+  }
+  function useSkill() {
+    const unit=active();if(!unit||unit.kind!=='hero'||unit.acted)return;
+    if(unit.id==='swordsman'){
+      if(unit.mp<3){$('battleMessage').textContent='Không đủ MP (cần 3).';return;}
+      const targets=attackTargets(unit);if(!targets.length){$('battleMessage').textContent='Chém Mạnh cần mục tiêu ở cự ly 1 ô.';return;}
+      targeting=true;targetTiles=targets.map(target=>({x:target.x,y:target.y}));$('battleMessage').textContent='Chọn mục tiêu cho Chém Mạnh · cận chiến.';renderAll();return;
+    }
+    if(unit.id==='mage'){
+      if(unit.mp<5){$('battleMessage').textContent='Không đủ MP (cần 5).';return;}
+      targeting=true;targetTiles=enemies().filter(enemy=>manhattan(unit,enemy)<=3&&clearShot(unit,enemy)).map(enemy=>({x:enemy.x,y:enemy.y}));$('battleMessage').textContent='Chọn mục tiêu trong tầm 3 ô để dùng Hỏa Cầu.';renderAll();return;
+    }
+    if(unit.id==='tank'){
+      unit.mp=Math.max(0,unit.mp-2);unit.guard=3;finishUnit(unit,`<b>${unit.name}</b> dựng khiên, giảm 3 sát thương nhận vào đến hết vòng.`);return;
+    }
+    if(unit.id==='archer'){
+      if(!units.some(other=>other.id==='tank'&&living(other))){$('battleMessage').textContent='Không thể dùng kỹ năng khi không còn tank.';return;}
+      const targets=attackTargets(unit);if(!targets.length){$('battleMessage').textContent='Không có mục tiêu trong tầm 3 ô.';return;}
+      targeting=true;targetTiles=targets.map(target=>({x:target.x,y:target.y}));$('battleMessage').textContent='Chọn mục tiêu cho Phát Bắn Chuẩn.';renderAll();return;
+    }
+  }
+  function performSkillTarget(target) {
+    const unit=active();if(!unit||!target)return;
+    if(unit.id==='swordsman'){
+      if(unit.mp<3){$('battleMessage').textContent='Không đủ MP (cần 3).';return;}unit.mp-=3;const damage=Math.max(2,effectiveStats(unit).atk+4-effectiveStats(target).def);triggerEffect(unit,target,'strike',damage);target.hp=Math.max(0,target.hp-damage);addLog(`<b>${unit.name}</b> dùng Chém Mạnh, gây <b>${damage}</b> sát thương lên ${target.name}${target.hp===0?' · GỤC!':''}.`,target.hp===0?'good':'');
+    } else if(unit.id==='mage'){
+      if(unit.mp<5){$('battleMessage').textContent='Không đủ MP (cần 5).';return;}unit.mp-=5;const damage=Math.max(2,effectiveStats(unit).matk+4-effectiveStats(target).def);triggerEffect(unit,target,'fire',damage);target.hp=Math.max(0,target.hp-damage);addLog(`<b>${unit.name}</b> dùng Hỏa Cầu, gây <b>${damage}</b> sát thương lên ${target.name}${target.hp===0?' · GỤC!':''}.`,target.hp===0?'good':'');
+    } else if(unit.id==='tank'){
+      if(unit.mp<2){performHeroAttack(unit,target);return;}unit.mp-=2;const damage=Math.max(2,effectiveStats(unit).atk+4-effectiveStats(target).def);triggerEffect(unit,target,'bash',damage);target.hp=Math.max(0,target.hp-damage);target.stun=target.boss?0:1;const controlText=target.boss?'(boss kháng choáng)':`và choáng ${target.name}`;addLog(`<b>${unit.name}</b> dùng Khiên Xung Kích, gây <b>${damage}</b> sát thương ${controlText}${target.hp===0?' · GỤC!':''}.`,target.hp===0?'good':'');
+    } else if(unit.id==='archer') {unit.mp=Math.max(0,unit.mp-2);const damage=Math.max(2,effectiveStats(unit).atk+5-effectiveStats(target).def);triggerEffect(unit,target,'arrow',damage);target.hp=Math.max(0,target.hp-damage);addLog(`<b>${unit.name}</b> dùng Xuyên Giáp, gây <b>${damage}</b> sát thương lên ${target.name}${target.hp===0?' · GỤC!':''}.`,target.hp===0?'good':'');}
+    else {const damage=Math.max(1,effectiveStats(unit).atk+3-effectiveStats(target).def);triggerEffect(unit,target,'arrow',damage);target.hp=Math.max(0,target.hp-damage);addLog(`<b>${unit.name}</b> tấn công, gây <b>${damage}</b> sát thương lên ${target.name}${target.hp===0?' · GỤC!':''}.`,target.hp===0?'good':'');}
+    if(target.hp===0){awardExp(unit);rollLoot(target);}finishUnit(unit);
+  }
+  function defend() {const unit=active();if(!unit||unit.kind!=='hero'||unit.acted)return;unit.guard=unit.id==='tank'?5:3;finishUnit(unit,`<b>${unit.name}</b> vào thế phòng thủ.`);}
+  function endTurn() {const unit=active();if(unit&&unit.kind==='hero'&&!unit.acted)finishUnit(unit,`<b>${unit.name}</b> kết thúc lượt.`);}
+  function chooseAiTarget(enemy) {
+    const candidates=heroes().map(unit=>({unit,path:findPathToAttackRange(enemy,unit,effectiveStats(enemy).range)}));
+    const reachable=candidates.filter(entry=>entry.path).sort((a,b)=>{
+      const score=({unit,path})=>path.distance+(unit.id==='tank'?2:0)+(unit.hp/effectiveStats(unit).hp)*1.2+(unit.id==='archer'?-1.1:0);
+      return score(a)-score(b);
+    })[0];
+    if(reachable)return reachable.unit;
+    return candidates.sort((a,b)=>manhattan(enemy,a.unit)-manhattan(enemy,b.unit))[0]?.unit||null;
+  }
+  function chooseHeroTarget(hero) {
+    return enemies().map(enemy=>({enemy,path:findPathToAttackRange(hero,enemy,Math.max(1,Math.min(effectiveStats(hero).range,3)))})).filter(entry=>entry.path).sort((a,b)=>{
+      const score=({enemy,path})=>path.distance+(enemy.hp/enemy.maxHp)*1.2+effectiveStats(enemy).def*.12;
+      return score(a)-score(b);
+    })[0]?.enemy||null;
+  }
+  function findPathToAttackRange(mover,target,range) {
+    const queue=[{x:mover.x,y:mover.y,first:null,distance:0}],seen=new Set([`${mover.x},${mover.y}`]);
+    while(queue.length){
+      const current=queue.shift();
+      if(current.distance>0&&manhattan(current,target)<=range&&clearShot(current,target))return {step:current.first,distance:current.distance,goal:{x:current.x,y:current.y}};
+      for(const [x,y] of neighbors(current.x,current.y)){
+        const key=`${x},${y}`;if(seen.has(key)||isOccupied(x,y,mover.id))continue;seen.add(key);queue.push({x,y,distance:current.distance+1,first:current.first||{x,y}});
+      }
+    }
+    return null;
+  }
+  function shortestNextStep(mover,target) {
+    const queue=[{x:mover.x,y:mover.y,first:null,distance:0}],seen=new Set([`${mover.x},${mover.y}`]);
+    while(queue.length){const current=queue.shift();if(current.x===target.x&&current.y===target.y)return current.first;
+      for(const [x,y] of neighbors(current.x,current.y)){
+        const key=`${x},${y}`;if(seen.has(key)||isOccupied(x,y,mover.id))continue;seen.add(key);queue.push({x,y,first:current.first||{x,y},distance:current.distance+1});
+      }
+    }
+    return null;
+  }
+  function findUnstuckStep(unit,opponents) {
+    return reachable(unit).map(tile=>{
+      const open=neighbors(tile.x,tile.y).filter(([x,y])=>!isOccupied(x,y,unit.id)).length;
+      const nearest=opponents.length?Math.min(...opponents.map(opponent=>manhattan(tile,opponent))):0;
+      const hazard=terrainMap.get(`${tile.x},${tile.y}`)?.type;
+      return {...tile,score:open*3-nearest*.15-(hazard==='trap'?1.5:0)-(hazard==='lava'?4:0)};
+    }).sort((a,b)=>b.score-a.score)[0]||null;
+  }
+  function heroTurn(id) {
+    const unit=getUnit(id);if(!unit||!living(unit)||unit.acted||paused||phase!=='playing'||activeId!==id)return;
+    if(unit.poisonTicks>0){unit.poisonTicks--;unit.hp=Math.max(0,unit.hp-2);addLog(`<b>${unit.name}</b> mất 2 HP vì độc.`,'enemy');if(!living(unit)){unit.acted=true;renderAll();turnIndex++;scheduleTimeout(advanceToNextTurn,actionDelay(250));return;}}
+    const danger=bossTelegraph.some(tile=>tile.type!=='roar'&&tile.x===unit.x&&tile.y===unit.y);
+    if(danger){
+      const safe=reachable(unit).filter(tile=>!bossTelegraph.some(mark=>mark.type!=='roar'&&mark.x===tile.x&&mark.y===tile.y));
+      const escape=safe.sort((a,b)=>{
+        const safety=tile=>Math.min(...bossTelegraph.filter(mark=>mark.type!=='roar').map(mark=>manhattan(tile,mark)),9);
+        return safety(b)-safety(a);
+      })[0];
+      if(escape){moveUnitTo(unit,escape.x,escape.y);addLog(`<b>${unit.name}</b> né vùng nguy hiểm đã được báo trước.`,'good');finishUnit(unit);return;}
+      unit.guard=3;addLog(`<b>${unit.name}</b> không kịp thoát, dựng thế thủ.`,'good');finishUnit(unit);return;
+    }
+    if(unit.id==='cleric'&&unit.mp>=4){
+      const patient=heroes().filter(ally=>ally.hp<ally.maxHp-4).sort((a,b)=>(a.hp/a.maxHp)-(b.hp/b.maxHp))[0];
+      if(patient){unit.mp-=4;const healed=Math.min(14+effectiveStats(unit).matk,effectiveStats(patient).hp-patient.hp);patient.hp+=healed;triggerEffect(unit,patient,'heal',-healed);addLog(`<b>${unit.name}</b> dùng Ánh Bình Minh, hồi <b>${healed}</b> HP cho ${patient.name}.`,'good');finishUnit(unit);return;}
+    }
+    if(unit.id==='cleric'&&unit.mp>=3){
+      const holyTargets=attackTargets(unit).filter(enemy=>manhattan(unit,enemy)<=effectiveStats(unit).range);
+      if(holyTargets.length){const target=holyTargets.sort((a,b)=>a.hp-b.hp)[0];unit.mp-=3;const damage=Math.max(2,effectiveStats(unit).matk+2-effectiveStats(target).def);triggerEffect(unit,target,'spell',damage);target.hp=Math.max(0,target.hp-damage);addLog(`<b>${unit.name}</b> dùng Thánh Quang, gây ${damage} sát thương lên ${target.name}${target.hp===0?' · GỤC!':''}.`,'good');if(target.hp===0){awardExp(unit);rollLoot(target);}finishUnit(unit);return;}
+    }
+    const tankAlive=units.some(other=>other.id==='tank'&&living(other));
+    const skillTargets=unit.id==='swordsman'&&unit.mp>=3?attackTargets(unit):unit.id==='mage'&&unit.mp>=5?enemies().filter(enemy=>manhattan(unit,enemy)<=3&&clearShot(unit,enemy)):unit.id==='archer'&&tankAlive&&unit.mp>=2?attackTargets(unit):unit.id==='tank'&&unit.mp>=2?attackTargets(unit):[];
+    if(skillTargets.length){performSkillTarget(skillTargets.sort((a,b)=>a.hp-b.hp)[0]);return;}
+    const targets=attackTargets(unit);
+    if(targets.length&&!(unit.id==='archer'&&!tankAlive)){performHeroAttack(unit,targets.sort((a,b)=>a.hp-b.hp)[0]);return;}
+
+    const target=chooseHeroTarget(unit);
+    if(target){
+      const path=findPathToAttackRange(unit,target,Math.max(1,Math.min(effectiveStats(unit).range,3)));
+      if(path?.step){
+        moveUnitTo(unit,path.step.x,path.step.y);unit.moved=true;
+        addLog(`<b>${unit.name}</b> tìm đường vòng đến (${unit.x+1}, ${unit.y+1}) để áp sát ${target.name}.`);
+        if(!living(unit)){unit.acted=true;renderAll();turnIndex++;scheduleTimeout(advanceToNextTurn,actionDelay(250));return;}
+        const movedSkillTargets=unit.id==='swordsman'&&unit.mp>=3?attackTargets(unit):unit.id==='mage'&&unit.mp>=5?enemies().filter(enemy=>manhattan(unit,enemy)<=3&&clearShot(unit,enemy)):unit.id==='archer'&&tankAlive&&unit.mp>=2?attackTargets(unit):unit.id==='tank'&&unit.mp>=2?attackTargets(unit):[];
+        if(movedSkillTargets.length){performSkillTarget(movedSkillTargets.sort((a,b)=>a.hp-b.hp)[0]);return;}
+        const movedTargets=attackTargets(unit);
+        if(movedTargets.length&&!(unit.id==='archer'&&!tankAlive)){performHeroAttack(unit,movedTargets.sort((a,b)=>a.hp-b.hp)[0]);return;}
+      }else{
+        addLog(`<b>${unit.name}</b> không tìm được đường tới ${target.name}, đổi sang giữ vị trí.`);
+      }
+    }else{
+      const escape=findUnstuckStep(unit,enemies());
+      if(escape){moveUnitTo(unit,escape.x,escape.y);addLog(`<b>${unit.name}</b> đổi vị trí để giải phóng lối di chuyển.`,'good');if(!living(unit)){unit.acted=true;renderAll();turnIndex++;scheduleTimeout(advanceToNextTurn,actionDelay(250));return;}finishUnit(unit);return;}
+    }
+    if(unit.id==='tank'){unit.guard=3;finishUnit(unit,`<b>${unit.name}</b> giữ thế phòng thủ.`);}
+    else finishUnit(unit,`<b>${unit.name}</b> kết thúc lượt.`);
+  }
+  function enemyTurn(id) {
+    const enemy=getUnit(id);if(!enemy||!living(enemy)||phase!=='playing'||paused||activeId!==id)return;
+    if(enemy.stun>0){enemy.stun--;enemy.acted=true;addLog(`<b>${enemy.name}</b> choáng, mất lượt.`,'good');renderAll();turnIndex++;scheduleTimeout(advanceToNextTurn,actionDelay(300));return;}
+    if(enemy.ability==='minochoco'){minochocoTurn(enemy);return;}
+    if(enemy.cooldown>0)enemy.cooldown--;
+    if(enemy.ability==='split'&&enemy.hp/enemy.maxHp<.6&&(enemy.cooldown||0)<=0){const restored=Math.min(Math.round(enemy.maxHp*.22),enemy.maxHp-enemy.hp);enemy.hp+=restored;enemy.cooldown=3;enemy.acted=true;addLog(`<b>${enemy.name}</b> dùng Tái Kết Tụ, hồi <b>${restored}</b> HP.`,'enemy');renderAll();turnIndex++;scheduleTimeout(advanceToNextTurn,actionDelay(420));return;}
+    let target=chooseAiTarget(enemy);if(!target){enemy.acted=true;renderAll();turnIndex++;scheduleTimeout(advanceToNextTurn,actionDelay(300));return;}
+    if(!canAttack(enemy,target)){
+      const path=findPathToAttackRange(enemy,target,effectiveStats(enemy).range);
+      const step=path?.step;
+      if(step){moveUnitTo(enemy,step.x,step.y);addLog(`<b>${enemy.name}</b> áp sát ${target.name}, chiếm ô (${enemy.x+1}, ${enemy.y+1}).`,'enemy');if(!living(enemy)){enemy.acted=true;renderAll();turnIndex++;scheduleTimeout(advanceToNextTurn,actionDelay(250));return;}}
+      else{
+        const alternate=heroes().filter(hero=>hero.id!==target.id).map(hero=>({hero,path:findPathToAttackRange(enemy,hero,effectiveStats(enemy).range)})).filter(entry=>entry.path).sort((a,b)=>a.path.distance-b.path.distance)[0];
+        if(alternate)target=alternate.hero;
+      }
+      const inRange=heroes().filter(hero=>canAttack(enemy,hero)).sort((a,b)=>a.hp-b.hp)[0];if(inRange)target=inRange;
+    }
+    if(canAttack(enemy,target)){
+      const specialReady=(enemy.cooldown||0)<=0;
+      const special= specialReady&&['heavy','volley','hex','venom','boss','pounce'].includes(enemy.ability);
+      if(special){
+        const power=enemy.ability==='heavy'?enemy.atk*1.65:enemy.ability==='boss'?enemy.atk*1.5:enemy.ability==='pounce'?enemy.atk*1.5:enemy.ability==='hex'?(enemy.matk||enemy.atk):enemy.atk*1.35;
+        const damage=Math.max(1,Math.round(power-effectiveStats(target).def-(target.guard||0)));
+        triggerEffect(enemy,target,enemy.ability==='hex'?'spell':'enemy',damage);target.hp=Math.max(0,target.hp-damage);target.guard=0;
+        if(enemy.ability==='venom'||enemy.ability==='boss')target.poisonTicks=Math.max(target.poisonTicks||0,2);
+        if(enemy.ability==='boss')heroes().filter(hero=>hero.id!==target.id&&manhattan(hero,target)<=1).forEach(hero=>{hero.hp=Math.max(0,hero.hp-Math.max(1,Math.round(enemy.atk*.45-effectiveStats(hero).def)));});
+        enemy.cooldown=enemy.boss?2:2;
+        const skillName={heavy:'Đập Phá',volley:'Loạt Tên',hex:'Tà Chú',venom:'Nọc Độc',boss:'Chấn Địa',pounce:'Vồ Săn'}[enemy.ability];
+        addLog(`<b>${enemy.name}</b> dùng ${skillName}, gây <b>${damage}</b> sát thương lên ${target.name}${enemy.ability==='boss'?' và quét trúng kẻ đứng cạnh':''}${target.hp===0?' · GỤC!':''}.`,'enemy');
+      }else{
+        const damage=Math.max(1,enemy.atk-effectiveStats(target).def-(target.guard||0));triggerEffect(enemy,target,enemy.range>1?'enemy':'strike',damage);target.hp=Math.max(0,target.hp-damage);target.guard=0;
+        addLog(`<b>${enemy.name}</b> tấn công ${target.name}, gây <b>${damage}</b> sát thương${target.hp===0?' · GỤC!':''}.`,'enemy');
+      }
+    }
+    enemy.acted=true;renderAll();turnIndex++;scheduleTimeout(advanceToNextTurn,actionDelay(420));
+  }
+  function minochocoTurn(boss) {
+    if(boss.pendingBossSkill){
+      const skill=boss.pendingBossSkill,warnedTiles=[...bossTelegraph];boss.pendingBossSkill=null;bossTelegraph=[];
+      if(skill.type==='slap'){
+        const hit=heroes().filter(hero=>warnedTiles.some(tile=>tile.x===hero.x&&tile.y===hero.y));
+        hit.forEach(hero=>{const damage=Math.max(2,boss.atk-Math.round(effectiveStats(hero).def*.65));triggerEffect(boss,hero,'enemy',damage);hero.hp=Math.max(0,hero.hp-damage);hero.guard=0;});
+        addLog(`<b>MinoChoco</b> vả vòng quanh, trúng ${hit.length} đồng đội!`,'enemy');
+      }else if(skill.type==='roar'){
+        heroes().forEach(hero=>{hero.weakenTicks=Math.max(hero.weakenTicks||0,2);triggerEffect(boss,hero,'spell',0);});
+        addLog('<b>MinoChoco</b> gầm vang! ATK và MATK của đội giảm 2 trong 2 vòng.','enemy');
+      }else{
+        const target=getUnit(skill.targetId);
+        if(target&&living(target)&&manhattan(boss,target)<=1){const damage=Math.max(2,boss.atk-effectiveStats(target).def);triggerEffect(boss,target,'enemy',damage);target.hp=Math.max(0,target.hp-damage);target.poisonTicks=Math.max(target.poisonTicks||0,3);addLog(`<b>MinoChoco</b> cắn ${target.name}, gây ${damage} sát thương và đầu độc 3 lượt!`,'enemy');}
+        else addLog('<b>MinoChoco</b> cắn hụt: mục tiêu đã thoát khỏi tầm.','good');
+      }
+      boss.acted=true;renderAll();turnIndex++;scheduleTimeout(advanceToNextTurn,actionDelay(500));return;
+    }
+    let target=chooseAiTarget(boss);if(!target){const escape=findUnstuckStep(boss,heroes());if(escape){moveUnitTo(boss,escape.x,escape.y);addLog('<b>MinoChoco</b> trườn sang lối khác để thoát thế kẹt.','enemy');}boss.acted=true;renderAll();turnIndex++;scheduleTimeout(advanceToNextTurn,actionDelay(300));return;}
+    if(!canAttack(boss,target)){
+      const path=findPathToAttackRange(boss,target,1);
+      if(path?.step){moveUnitTo(boss,path.step.x,path.step.y);addLog(`<b>MinoChoco</b> trườn vòng qua chướng ngại để áp sát ${target.name}.`,'enemy');}
+      else{const alternatives=heroes().filter(hero=>hero.id!==target.id).map(hero=>({hero,path:findPathToAttackRange(boss,hero,1)})).filter(entry=>entry.path).sort((a,b)=>a.path.distance-b.path.distance);if(alternatives.length)target=alternatives[0].hero;}
+    }
+    const cycle=['slap','roar','bite'];const type=cycle[boss.bossCycle%cycle.length];boss.bossCycle=(boss.bossCycle+1)%cycle.length;
+    if(type==='slap'){
+      bossTelegraph=[];for(const hero of heroes())if(manhattan(boss,hero)<=1)bossTelegraph.push({x:hero.x,y:hero.y,type:'slap'});
+      if(!bossTelegraph.length)bossTelegraph.push({x:boss.x,y:boss.y,type:'slap'});
+      addLog('<b>MinoChoco</b> cuộn mình, chuẩn bị vả toàn bộ ô xung quanh! Hãy né.','enemy');
+    }else if(type==='roar'){
+      bossTelegraph=heroes().map(hero=>({x:hero.x,y:hero.y,type:'roar'}));
+      addLog('<b>MinoChoco</b> hít sâu, chuẩn bị gầm làm suy yếu cả đội!','enemy');
+    }else{
+      bossTelegraph=[{x:target.x,y:target.y,type:'bite'}];boss.pendingBossSkill={type:'bite',targetId:target.id};
+      addLog(`<b>MinoChoco</b> khóa mục tiêu ${target.name}, chuẩn bị cắn độc!`,'enemy');
+    }
+    if(type!=='bite')boss.pendingBossSkill={type};boss.acted=true;renderAll();turnIndex++;scheduleTimeout(advanceToNextTurn,actionDelay(500));
+  }
+  function finish(victory) {
+    phase=victory?'won':'lost';$('resultTitle').textContent=victory?'PHÒNG ĐÃ DỌN SẠCH':'ĐỘI HÌNH THẤT THỦ';$('resultMark').textContent=victory?'✓':'×';$('resultText').textContent=victory?'Kẻ địch bị đánh bại. Tiếp tục lên tầng hoặc chơi lại căn phòng.':'Không còn đồng đội đứng vững. Khởi động lại phòng để thử chiến thuật khác.';$('continueButton').textContent=victory?'LÊN TẦNG TIẾP':'THỬ LẠI';$('resultOverlay').classList.add('show');addLog(victory?'Chiến thắng! Căn phòng đã được dọn sạch.':'Thất bại. Đội thám hiểm đã gục ngã.',victory?'good':'enemy');renderAll();
+  }
+  function continueFloor() {
+    if(phase==='won'){floor++;shopStock=generateShopStock();}
+    resetRoom(false);
+  }
+  function renderParty() {
+    const party=units.filter(unit=>unit.kind==='hero');$('partyCount').textContent=`${String(party.length).padStart(2,'0')} ĐỒNG ĐỘI`;
+    $('partyList').innerHTML=party.map(unit=>{const stats=effectiveStats(unit);return `<div class="unit-card ${selectedHeroId===unit.id?'selected':''} ${!living(unit)?'down':''}" data-id="${unit.id}"><div class="portrait" style="background:${unit.color}">${unit.glyph}</div><div class="unit-copy"><div class="unit-name">${unit.name}<span class="unit-role">${classNames[unit.id]}</span></div><div class="hp-track"><div class="hp-fill" style="width:${Math.max(0,unit.hp/stats.hp*100)}%;background:${unit.hp/stats.hp<.3?'var(--red)':'var(--green)'}"></div></div><div class="mp-track"><div class="mp-fill" style="width:${unit.maxMp?unit.mp/stats.mp*100:0}%"></div></div><div class="health-numbers"><span>HP ${unit.hp}/${stats.hp}</span><span>MP ${unit.mp}/${stats.mp}</span></div></div><span class="unit-level">LV ${unit.level}</span></div>`;}).join('');
+    $('partyList').querySelectorAll('[data-id]').forEach(card=>card.addEventListener('click',()=>{selectedHeroId=card.dataset.id;selectedId=selectedHeroId;renderParty();$('characterDetail').innerHTML=detailMarkup(getUnit(selectedHeroId)||heroRoster.find(hero=>hero.id===selectedHeroId));}));
+    $('characterDetail').innerHTML=detailMarkup(getUnit(selectedHeroId)||heroRoster.find(hero=>hero.id===selectedHeroId));
+  }
+  function renderLoot() {
+    $('lootCount').textContent=`${String(inventory.length).padStart(2,'0')} MÓN`;
+    $('goldAmount').textContent=`${gold} ◈`;
+    $('lootList').innerHTML=inventory.length?inventory.slice(0,4).map(item=>`<div class="loot-entry"><span class="loot-icon" style="color:${rarityColors[item.rarity-1]}">${item.icon}</span><span><span class="loot-name">${item.name}</span><br><span class="loot-sub">${slotNames[item.slot]} · tầng ${item.floor} · bán ${item.sellPrice} ◈</span></span><span class="rarity-stars" style="color:${rarityColors[item.rarity-1]}">${'★'.repeat(item.rarity)}${'☆'.repeat(5-item.rarity)}</span></div>`).join(''):'<div class="loot-empty">Chưa tìm thấy vật phẩm.</div>';
+  }
+  function renderTurnStrip() {
+    $('turnStrip').innerHTML=order.map(unit=>`<div class="turn-chip ${unit.id===activeId?'current':''} ${!living(unit)?'dead':''}"><span class="mini-sprite" style="--unit-color:${unit.color}">${unit.glyph}</span><span><span class="turn-name">${unit.name}</span><br><span class="turn-speed">SPD ${unit.spd}</span></span></div>`).join('');
+  }
+  function renderActions() {
+    const unit=active();
+    $('activeName').textContent=unit?unit.name:phase==='ready'?'Chưa bắt đầu':phase==='exiting'?'Đang qua cửa':'Trận đấu kết thúc';
+    $('activeSpeed').textContent=unit?`SPD ${effectiveStats(unit).spd}`:'SPD —';
+    $('turnOwner').textContent=phase==='ready'?'SẴN SÀNG':phase==='exiting'?'ĐI QUA CỬA':phase==='won'?'CHIẾN THẮNG':phase==='lost'?'THẤT BẠI':paused?'TẠM DỪNG':unit?.kind==='hero'?'LƯỢT ĐỒNG ĐỘI':'LƯỢT QUÁI';
+    $('battleStatus').textContent=phase==='ready'?'● CHỜ BẮT ĐẦU':phase==='exiting'?'● ĐANG QUA CỬA':phase==='won'?'● ĐÃ THẮNG':phase==='lost'?'● ĐÃ THUA':paused?'● TẠM DỪNG':'● ĐANG CHIẾN ĐẤU';
+    $('playbackBtn').textContent=phase==='ready'?'▶ BẮT ĐẦU':paused?'▶ TIẾP TỤC':'Ⅱ TẠM DỪNG';
+    $('playbackBtn').disabled=phase==='won'||phase==='lost';
+    $('speedBtn').textContent=`${playbackSpeeds[speedIndex]}×`;
+    $('actionHint').textContent=phase==='exiting'?'Quái đã bị dọn sạch. Toàn đội phải tự đi qua cửa bên để lên tầng.':paused?'Trận đấu đang tạm dừng. Nhấn Tiếp tục để AI chơi tiếp.':'AI tự điều khiển cả đội và quái. Dùng nút tốc độ để xem nhanh hơn.';
+    $('statusHint').textContent=phase==='ready'?'NHẤN BẮT ĐẦU ĐỂ CHẠY TRẬN':phase==='exiting'?'ĐỘI HÌNH ĐANG RÚT QUA CỬA':paused?'ĐÃ TẠM DỪNG':unit?.kind==='hero'?`AI ĐANG ĐIỀU KHIỂN ${unit.name.toLocaleUpperCase('vi-VN')}`:unit?'AI QUÁI ĐANG HÀNH ĐỘNG':phase==='won'?'ĐÃ HOÀN THÀNH PHÒNG':'ĐỘI HÌNH ĐÃ THẤT THỦ';
+  }
+  function drawTile(x,y) {
+    const px=x*cellW,py=y*cellH;const alternate=(x+y)%2===0;
+    ctx.fillStyle=alternate?'#344235':'#303d33';ctx.fillRect(px,py,cellW,cellH);
+    ctx.fillStyle='rgba(220,235,205,.035)';ctx.fillRect(px+2,py+2,cellW-4,cellH-4);
+    ctx.strokeStyle='rgba(180,200,164,.12)';ctx.lineWidth=1;ctx.strokeRect(px+.5,py+.5,cellW,cellH);
+    if((x*3+y*7)%19===0){ctx.fillStyle='#495744';ctx.fillRect(px+cellW*.28,py+cellH*.68,3,2);ctx.fillRect(px+cellW*.68,py+cellH*.25,2,2);}
+  }
+  function drawTerrain(x,y) {
+    const tile=terrainMap.get(`${x},${y}`);if(!tile)return;
+    const px=x*cellW,py=y*cellH,cw=cellW,ch=cellH;
+    if(tile.type==='water'){
+      ctx.fillStyle='#286d80';ctx.fillRect(px+1,py+1,cw-2,ch-2);ctx.fillStyle='#62c3ce';ctx.fillRect(px+cw*.16,py+ch*.28,cw*.38,2);ctx.fillRect(px+cw*.48,py+ch*.67,cw*.35,2);
+    }else if(tile.type==='abyss'){
+      ctx.fillStyle='#111722';ctx.fillRect(px+1,py+1,cw-2,ch-2);ctx.strokeStyle='#586a82';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(px+cw*.2,py+ch*.25);ctx.lineTo(px+cw*.42,py+ch*.47);ctx.lineTo(px+cw*.28,py+ch*.7);ctx.moveTo(px+cw*.72,py+ch*.16);ctx.lineTo(px+cw*.57,py+ch*.34);ctx.stroke();
+    }else if(tile.type==='bridge'){
+      ctx.fillStyle='#4b4435';ctx.fillRect(px+2,py+ch*.2,cw-4,ch*.6);ctx.fillStyle='#b59559';for(let i=1;i<5;i++)ctx.fillRect(px+cw*i/5,py+ch*.22,2,ch*.56);
+    }else if(tile.type==='lava'){
+      ctx.fillStyle='#7d3425';ctx.fillRect(px+1,py+1,cw-2,ch-2);ctx.fillStyle='#f08b37';ctx.fillRect(px+cw*.15,py+ch*.22,cw*.36,ch*.18);ctx.fillRect(px+cw*.52,py+ch*.6,cw*.33,ch*.14);ctx.fillStyle='#ffd06b';ctx.fillRect(px+cw*.3,py+ch*.47,cw*.12,2);
+    }else if(tile.type==='trap'){
+      const triggered=triggeredTraps.has(`${x},${y}`);ctx.fillStyle=triggered?'#584b3a':'#78613d';ctx.fillRect(px+cw*.22,py+ch*.22,cw*.56,ch*.56);ctx.strokeStyle=triggered?'#9c8965':'#f0c16c';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(px+cw*.34,py+ch*.36);ctx.lineTo(px+cw*.66,py+ch*.64);ctx.moveTo(px+cw*.66,py+ch*.36);ctx.lineTo(px+cw*.34,py+ch*.64);ctx.stroke();
+    }else if(tile.type==='portal'){
+      ctx.fillStyle='#24334b';ctx.fillRect(px+cw*.12,py+ch*.1,cw*.76,ch*.8);ctx.strokeStyle='#86b6e8';ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(px+cw/2,py+ch/2,cw*.22,ch*.34,0,0,Math.PI*2);ctx.stroke();ctx.fillStyle='#c2a6ed';ctx.fillRect(px+cw*.46,py+ch*.43,cw*.08,ch*.14);
+    }
+  }
+  function drawWall(x,y) {
+    const px=x*cellW,py=y*cellH;ctx.fillStyle='#202922';ctx.fillRect(px+2,py+2,cellW-4,cellH-4);ctx.fillStyle='#52604a';ctx.fillRect(px+3,py+3,cellW-6,4);ctx.fillStyle='#394437';ctx.fillRect(px+4,py+8,cellW-8,cellH-13);ctx.fillStyle='#65715a';ctx.fillRect(px+cellW*.16,py+cellH*.47,cellW*.68,3);ctx.fillStyle='#161d18';ctx.fillRect(px+cellW*.1,py+cellH*.78,cellW*.8,3);
+  }
+  function drawDoor() {
+    const px=exitDoor.x*cellW,py=exitDoor.y*cellH,open=phase==='exiting';
+    ctx.fillStyle=open?'rgba(230,187,91,.2)':'#202923';ctx.fillRect(px+cellW*.18,py+cellH*.12,cellW*.72,cellH*.82);
+    ctx.strokeStyle=open?'#f1ce78':'#9c8551';ctx.lineWidth=Math.max(2,cellW*.045);ctx.strokeRect(px+cellW*.23,py+cellH*.16,cellW*.58,cellH*.77);
+    ctx.fillStyle=open?'#f5dc91':'#62563d';ctx.fillRect(px+cellW*.34,py+cellH*.28,cellW*.37,cellH*.64);
+    ctx.fillStyle='#e9d48d';ctx.fillRect(px+cellW*.6,py+cellH*.56,3,3);
+    if(open){ctx.fillStyle='rgba(246,219,130,.28)';ctx.fillRect(px+cellW*.08,py+cellH*.07,cellW*.9,cellH*.95);}
+  }
+  function drawSprite(unit) {
+    let drawX=unit.x,drawY=unit.y;
+    if(unit.animation){const progress=Math.min(1,(performance.now()-unit.animation.start)/unit.animation.duration);drawX=unit.animation.fromX+(unit.animation.toX-unit.animation.fromX)*progress;drawY=unit.animation.fromY+(unit.animation.toY-unit.animation.fromY)*progress;if(progress>=1)unit.animation=null;}
+    const px=drawX*cellW,py=drawY*cellH,cw=cellW,ch=cellH;const centerX=px+cw/2,centerY=py+ch/2;
+    if(unit.boss){ctx.fillStyle='rgba(228,158,83,.16)';ctx.fillRect(px+cw*.08,py+ch*.12,cw*.84,ch*.72);ctx.strokeStyle='#f0b869';ctx.lineWidth=2;ctx.strokeRect(px+cw*.08,py+ch*.12,cw*.84,ch*.72);}
+    if(unit.species==='snake'){
+      const scale=unit.boss?1:.8;ctx.fillStyle='#277e6d';
+      [[.27,.69],[.43,.72],[.58,.67],[.64,.52],[.51,.43],[.36,.48],[.3,.34],[.45,.27],[.61,.31]].forEach(([x,y],index)=>{const size=cw*(index===8?.22:.16)*scale;ctx.fillRect(centerX+cw*(x-.5),py+ch*(y-.5),size,size);});
+      ctx.fillStyle='#71d2ac';ctx.fillRect(centerX+cw*.11,py+ch*.2,cw*.24, ch*.19);ctx.fillStyle='#f4d46e';ctx.fillRect(centerX+cw*.25,py+ch*.24,cw*.045,ch*.045);ctx.fillRect(centerX+cw*.25,py+ch*.31,cw*.045,ch*.045);ctx.fillStyle='#a4e4ca';ctx.fillRect(centerX+cw*.3,py+ch*.37,cw*.34,2);
+      const barW=cw*.82,bx=centerX-barW/2,by=py+ch*.09;ctx.fillStyle='#171b17';ctx.fillRect(bx,by,barW,6);ctx.fillStyle='#e17866';ctx.fillRect(bx,by,barW*Math.max(0,unit.hp/unit.maxHp),6);ctx.fillStyle='#ffe2b7';ctx.font=`600 ${Math.max(8,Math.floor(ch*.11))}px 'DM Mono',monospace`;ctx.textAlign='center';ctx.fillText(unit.name,centerX,py+ch*.96);return;
+    }
+    // Bóng đổ, áo choàng và hình dáng nhân vật vẽ bằng vector để sprite rõ nét hơn khi phóng to.
+    ctx.fillStyle='rgba(5,10,7,.42)';ctx.beginPath();ctx.ellipse(centerX,py+ch*.83,cw*.23,ch*.065,0,0,Math.PI*2);ctx.fill();
+    const body=unit.color;
+    ctx.fillStyle=unit.kind==='enemy'?'#352b2a':'#26362e';
+    ctx.beginPath();ctx.moveTo(centerX-cw*.2,py+ch*.39);ctx.lineTo(centerX+cw*.2,py+ch*.39);ctx.lineTo(centerX+cw*.27,py+ch*.72);ctx.lineTo(centerX,py+ch*.79);ctx.lineTo(centerX-cw*.27,py+ch*.72);ctx.closePath();ctx.fill();
+    ctx.fillStyle=body;ctx.beginPath();ctx.moveTo(centerX-cw*.19,py+ch*.38);ctx.lineTo(centerX+cw*.19,py+ch*.38);ctx.lineTo(centerX+cw*.22,py+ch*.66);ctx.lineTo(centerX,py+ch*.73);ctx.lineTo(centerX-cw*.22,py+ch*.66);ctx.closePath();ctx.fill();
+    ctx.fillStyle='#d6b78d';ctx.beginPath();ctx.arc(centerX,py+ch*.29,cw*.145,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=unit.kind==='enemy'?'#332927':(unit.id==='mage'?'#334c78':unit.id==='archer'?'#3e583b':unit.id==='tank'?'#4b554b':unit.id==='cleric'?'#51482d':'#4a3429');
+    ctx.beginPath();ctx.arc(centerX,py+ch*.255,cw*.155,Math.PI,Math.PI*2);ctx.lineTo(centerX+cw*.13,py+ch*.3);ctx.lineTo(centerX-cw*.13,py+ch*.3);ctx.closePath();ctx.fill();
+    ctx.fillStyle='#201f1c';ctx.beginPath();ctx.arc(centerX+cw*.052,py+ch*.295,cw*.018,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#f0d6a4';ctx.lineWidth=Math.max(1,cw*.025);ctx.beginPath();ctx.moveTo(centerX-cw*.11,py+ch*.42);ctx.lineTo(centerX+cw*.11,py+ch*.42);ctx.stroke();
+    ctx.fillStyle='#31352d';ctx.beginPath();ctx.roundRect(centerX-cw*.17,py+ch*.68,cw*.12,ch*.14,3);ctx.roundRect(centerX+cw*.05,py+ch*.68,cw*.12,ch*.14,3);ctx.fill();
+    const heldWeapon=getGear(unit.id,'weapon'),weaponFamily=heldWeapon?.family;
+    if(unit.kind==='hero'&&weaponFamily){
+      ctx.lineCap='round';ctx.lineJoin='round';
+      if(weaponFamily==='sword'||weaponFamily==='axe'){
+        ctx.strokeStyle='#b9c9d0';ctx.lineWidth=Math.max(2,cw*.045);ctx.beginPath();ctx.moveTo(centerX+cw*.2,py+ch*.5);ctx.lineTo(centerX+cw*.34,py+ch*.24);ctx.stroke();
+        ctx.strokeStyle='#c59b57';ctx.lineWidth=Math.max(2,cw*.055);ctx.beginPath();ctx.moveTo(centerX+cw*.17,py+ch*.53);ctx.lineTo(centerX+cw*.24,py+ch*.47);ctx.stroke();
+        if(weaponFamily==='axe'){ctx.fillStyle='#b8c4c7';ctx.beginPath();ctx.moveTo(centerX+cw*.29,py+ch*.25);ctx.lineTo(centerX+cw*.39,py+ch*.22);ctx.lineTo(centerX+cw*.35,py+ch*.34);ctx.closePath();ctx.fill();}
+      }else if(weaponFamily==='bow'||weaponFamily==='crossbow'){
+        ctx.strokeStyle='#d7b878';ctx.lineWidth=Math.max(2,cw*.035);ctx.beginPath();ctx.arc(centerX+cw*.25,py+ch*.48,cw*.13,-1.15,1.15);ctx.stroke();
+        ctx.strokeStyle='#e8e2c8';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(centerX+cw*.2,py+ch*.36);ctx.lineTo(centerX+cw*.2,py+ch*.6);ctx.stroke();
+      }else{
+        ctx.strokeStyle='#d4b66d';ctx.lineWidth=Math.max(2,cw*.04);ctx.beginPath();ctx.moveTo(centerX+cw*.25,py+ch*.64);ctx.lineTo(centerX+cw*.25,py+ch*.25);ctx.stroke();
+        ctx.fillStyle='#8fe0e3';ctx.beginPath();ctx.arc(centerX+cw*.25,py+ch*.23,cw*.07,0,Math.PI*2);ctx.fill();
+      }
+    }
+    if(unit.id==='tank'){ctx.fillStyle='#b9c1a0';ctx.fillRect(centerX-cw*.27,py+ch*.38,cw*.09,ch*.28);ctx.fillStyle='#897448';ctx.fillRect(centerX+cw*.2,py+ch*.31,cw*.06,ch*.37);}
+    if(unit.id==='swordsman'){ctx.strokeStyle='#e5e5d4';ctx.lineWidth=Math.max(2,cw*.055);ctx.beginPath();ctx.moveTo(centerX+cw*.22,py+ch*.35);ctx.lineTo(centerX+cw*.43,py+ch*.08);ctx.stroke();ctx.fillStyle='#b6a17a';ctx.fillRect(centerX+cw*.16,py+ch*.34,cw*.16,ch*.04);}
+    if(unit.id==='archer'){ctx.strokeStyle='#d5b06b';ctx.lineWidth=Math.max(2,cw*.035);ctx.beginPath();ctx.arc(centerX+cw*.25,py+ch*.49,cw*.14,-1.2,1.2);ctx.stroke();ctx.fillStyle='#634e37';ctx.fillRect(centerX-cw*.29,py+ch*.47,cw*.08,ch*.04);}
+    if(unit.id==='mage'){ctx.fillStyle='#e4ce83';ctx.fillRect(centerX-cw*.25,py+ch*.14,cw*.5,ch*.07);ctx.fillStyle='#d4b260';ctx.fillRect(centerX+cw*.24,py+ch*.21,cw*.045,ch*.53);ctx.fillStyle='#a5d8e3';ctx.fillRect(centerX+cw*.19,py+ch*.18,cw*.15,ch*.12);}
+    if(unit.kind==='enemy'){const bodyWidth=unit.boss?cw*.6:cw*.46;ctx.fillStyle=unit.color;ctx.fillRect(centerX-bodyWidth/2,py+ch*.4,bodyWidth,unit.boss?ch*.38:ch*.28);ctx.fillStyle='#f3d5a2';ctx.fillRect(centerX-cw*.14,py+ch*.46,cw*.07,ch*.07);ctx.fillRect(centerX+cw*.07,py+ch*.46,cw*.07,ch*.07);ctx.fillStyle='#24231f';ctx.fillRect(centerX-cw*.25,py+ch*.35,cw*.1,ch*.08);ctx.fillRect(centerX+cw*.15,py+ch*.35,cw*.1,ch*.08);if(unit.boss){ctx.fillStyle='#f1cb78';ctx.fillRect(centerX-cw*.26,py+ch*.27,cw*.13,ch*.13);ctx.fillRect(centerX+cw*.13,py+ch*.27,cw*.13,ch*.13);}if(unit.ability==='volley'){ctx.strokeStyle='#e7c57b';ctx.lineWidth=2;ctx.beginPath();ctx.arc(centerX+cw*.22,py+ch*.52,cw*.14,-1.2,1.2);ctx.stroke();}if(unit.ability==='hex'){ctx.fillStyle='#a9d9ef';ctx.fillRect(centerX+cw*.21,py+ch*.17,cw*.13,ch*.13);}}
+    if(unit.id===activeId){ctx.strokeStyle='#d4ef77';ctx.lineWidth=2;ctx.strokeRect(px+4,py+4,cw-8,ch-8);ctx.fillStyle='#d4ef77';ctx.fillRect(px+cw/2-3,py+3,6,4);}
+    if(unit.id===selectedId&&unit.id!==activeId){ctx.strokeStyle='#f2cf74';ctx.lineWidth=2;ctx.setLineDash([4,3]);ctx.strokeRect(px+5,py+5,cw-10,ch-10);ctx.setLineDash([]);}
+    const barW=unit.boss?cw*.82:cw*.65,bx=centerX-barW/2,by=py+ch*.09,barHeight=unit.boss?6:4;ctx.fillStyle='#171b17';ctx.fillRect(bx,by,barW,barHeight);ctx.fillStyle=unit.kind==='enemy'?'#e17866':'#7dbd77';ctx.fillRect(bx,by,barW*Math.max(0,unit.hp/unit.maxHp),barHeight);
+    ctx.fillStyle=unit.kind==='enemy'?'#f5b3a2':'#e9eed9';ctx.font=`500 ${Math.max(8,Math.floor(ch*.11))}px 'DM Mono',monospace`;ctx.textAlign='center';ctx.fillText(unit.name,centerX,py+ch*.96);
+  }
+  function drawEffects(now) {
+    visualEffects=visualEffects.filter(effect=>now-effect.start<effect.duration);
+    for(const effect of visualEffects){
+      const progress=Math.min(1,(now-effect.start)/effect.duration),startX=(effect.fromX+.5)*cellW,startY=(effect.fromY+.5)*cellH,endX=(effect.toX+.5)*cellW,endY=(effect.toY+.5)*cellH;
+      const x=startX+(endX-startX)*progress,y=startY+(endY-startY)*progress;
+      ctx.globalAlpha=1-progress*.72;ctx.strokeStyle=effect.color;ctx.fillStyle=effect.color;ctx.lineWidth=Math.max(2,cellW*.045);ctx.beginPath();ctx.moveTo(startX,startY);ctx.lineTo(x,y);ctx.stroke();
+      ctx.shadowColor=effect.color;ctx.shadowBlur=effect.type==='fire'||effect.type==='spell'?cellW*.28:cellW*.1;ctx.beginPath();ctx.arc(x,y,Math.max(3,cellW*(.06+progress*.12)),0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+      if(progress>.7){ctx.globalAlpha=(1-progress)*3;ctx.lineWidth=2;ctx.beginPath();ctx.arc(endX,endY,cellW*(.08+(progress-.7)*.75),0,Math.PI*2);ctx.stroke();}
+      if(effect.damage&&progress>.2){ctx.globalAlpha=Math.min(1,(progress-.2)*3);ctx.fillStyle=effect.damage<0?'#c8f4a3':'#fff3d2';ctx.font=`600 ${Math.max(10,Math.floor(cellH*.19))}px 'DM Mono',monospace`;ctx.textAlign='center';ctx.fillText(effect.damage<0?`+${Math.abs(effect.damage)}`:`-${effect.damage}`,endX,endY-cellH*(.12+progress*.24));}
+      ctx.globalAlpha=1;
+    }
+    if(bossTelegraph.length){const pulse=.68+Math.sin(now/170)*.18;for(const tile of bossTelegraph){const px=tile.x*cellW,py=tile.y*cellH;ctx.globalAlpha=pulse;ctx.fillStyle=tile.type==='roar'?'rgba(206,122,228,.3)':'rgba(239,91,73,.34)';ctx.fillRect(px+2,py+2,cellW-4,cellH-4);ctx.strokeStyle=tile.type==='roar'?'#d5a0ec':'#ff8770';ctx.lineWidth=3;ctx.strokeRect(px+5,py+5,cellW-10,cellH-10);ctx.fillStyle='#fff0d3';ctx.font=`600 ${Math.max(8,Math.floor(cellH*.12))}px 'DM Mono',monospace`;ctx.textAlign='center';ctx.fillText(tile.type==='slap'?'VẢ':tile.type==='bite'?'CẮN':'GẦM',px+cellW/2,py+cellH*.24);ctx.globalAlpha=1;}}
+  }
+  function draw() {
+    const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;
+    pixelRatio=Math.min(window.devicePixelRatio||1,2);const width=Math.floor(rect.width*pixelRatio),height=Math.floor(rect.height*pixelRatio);if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}
+    ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,width,height);cellW=width/cols;cellH=height/rows;
+    for(let y=0;y<rows;y++)for(let x=0;x<cols;x++)drawTile(x,y);
+    for(const key of terrainMap.keys()){const [x,y]=key.split(',').map(Number);drawTerrain(x,y);}
+    for(const tile of moveTiles){ctx.fillStyle='rgba(80,201,173,.25)';ctx.fillRect(tile.x*cellW+2,tile.y*cellH+2,cellW-4,cellH-4);ctx.strokeStyle='#77d2bb';ctx.lineWidth=2;ctx.strokeRect(tile.x*cellW+4,tile.y*cellH+4,cellW-8,cellH-8);}
+    for(const tile of targetTiles){ctx.fillStyle='rgba(231,186,95,.28)';ctx.fillRect(tile.x*cellW+2,tile.y*cellH+2,cellW-4,cellH-4);ctx.strokeStyle='#eac56d';ctx.lineWidth=2;ctx.strokeRect(tile.x*cellW+5,tile.y*cellH+5,cellW-10,cellH-10);}
+    for(const wall of walls){const [x,y]=wall.split(',').map(Number);drawWall(x,y);}
+    drawDoor();
+    for(const unit of units.filter(unit=>living(unit)&&!unit.inTransit))drawSprite(unit);
+    const now=performance.now();drawEffects(now);
+    const moving=units.some(unit=>unit.animation&&now-unit.animation.start<unit.animation.duration);
+    if((moving||visualEffects.length||bossTelegraph.length&&phase==='playing'&&!paused)&&!animationFrame)animationFrame=window.requestAnimationFrame(()=>{animationFrame=0;draw();});
+  }
+  function renderAll(){renderParty();renderLoot();renderTurnStrip();renderActions();draw();saveProgress();}
+  $('playbackBtn').addEventListener('click',startOrPause);
+  $('speedBtn').addEventListener('click',()=>{speedIndex=(speedIndex+1)%playbackSpeeds.length;renderAll();});
+  $('restartBtn').addEventListener('click',()=>resetRoom());
+  $('continueButton').addEventListener('click',continueFloor);
+  $('newRunButton').addEventListener('click',()=>{starterSelection=[];starterWeaponChoices={};renderStarterSetup();showScreen('setup');});
+  $('backToMenuButton').addEventListener('click',()=>showScreen('title'));
+  $('starterGrid').addEventListener('click',event=>{const card=event.target.closest('[data-starter]');if(!card)return;const id=card.dataset.starter;if(starterSelection.includes(id))starterSelection=starterSelection.filter(value=>value!==id);else if(starterSelection.length<2){starterSelection.push(id);const firstWeapon=gearCatalog.find(item=>item.slot==='weapon');if(firstWeapon)starterWeaponChoices[id]=firstWeapon.name;}renderStarterSetup();});
+  $('starterLoadouts').addEventListener('change',event=>{const select=event.target.closest('[data-starter-weapon]');if(select)starterWeaponChoices[select.dataset.starterWeapon]=select.value;});
+  $('startNewRunButton').addEventListener('click',enterNewRun);
+  $('continueRunButton').addEventListener('click',continueSavedRun);
+  $('settingsButton').addEventListener('click',()=>{$('settingsPanel').hidden=!$('settingsPanel').hidden;});
+  $('defaultSpeed').value=localStorage.getItem('tower-companions-speed')||'0';saveEnabled=localStorage.getItem('tower-companions-autosave')!=='false';$('saveToggle').checked=saveEnabled;
+  $('defaultSpeed').addEventListener('change',()=>localStorage.setItem('tower-companions-speed',$('defaultSpeed').value));
+  $('saveToggle').addEventListener('change',()=>{saveEnabled=$('saveToggle').checked;localStorage.setItem('tower-companions-autosave',String(saveEnabled));if(saveEnabled)saveProgress();});
+  $('menuButton').addEventListener('click',()=>{saveProgress();clearBattleTimers();paused=true;showScreen('title');updateMenuSummary();});
+  document.querySelectorAll('.game-tab[data-tab]').forEach(button=>button.addEventListener('click',()=>showTab(button.dataset.tab)));
+  $('recruitAccept').addEventListener('click',()=>resolveRecruit(true));$('recruitDecline').addEventListener('click',()=>resolveRecruit(false));
+  window.addEventListener('resize',draw);
+  updateMenuSummary();showScreen('title');
+})();
+</script>
+</body>
+</html>

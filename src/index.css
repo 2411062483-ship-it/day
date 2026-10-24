@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #070a0f;
+    color: #e2e8f0;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+.font-silkscreen {
+  font-family: 'Silkscreen', monospace;
+}
+
+.font-press-start {
+  font-family: 'Press Start 2P', monospace;
+}
+
+/* Pixel Art UI Frames */
+.pixel-frame {
+  box-shadow:
+    inset -2px -2px 0 0 #0f172a,
+    inset 2px 2px 0 0 #334155,
+    inset -3px -3px 0 0 #020617,
+    inset 3px 3px 0 0 #1e293b;
+  border: 1px solid #0f172a;
+}
+
+.pixel-frame-gold {
+  box-shadow:
+    inset -2px -2px 0 0 #78350f,
+    inset 2px 2px 0 0 #fbbf24,
+    inset -3px -3px 0 0 #451a03,
+    inset 3px 3px 0 0 #f59e0b;
+  border: 1px solid #78350f;
+}
+
+/* Pixel Art Interactive Buttons */
+.pixel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  user-select: none;
+  box-shadow:
+    inset -2px -2px 0 0 rgba(0, 0, 0, 0.45),
+    inset 2px 2px 0 0 rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.pixel-btn:hover:not(:disabled) {
+  filter: brightness(1.15);
+}
+
+.pixel-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow:
+    inset 2px 2px 0 0 rgba(0, 0, 0, 0.5),
+    inset -1px -1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.pixel-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+.pixel-btn-amber {
+  background-color: #d97706;
+  color: #fffbeb;
+  border-color: #78350f;
+}
+
+.pixel-btn-amber:hover:not(:disabled) {
+  background-color: #f59e0b;
+}
+
+.pixel-btn-emerald {
+  background-color: #059669;
+  color: #ecfdf5;
+  border-color: #064e3b;
+}
+
+.pixel-btn-emerald:hover:not(:disabled) {
+  background-color: #10b981;
+}
+
+.pixel-btn-primary {
+  background-color: #2563eb;
+  color: #eff6ff;
+  border-color: #1e3a8a;
+}
+
+.pixel-btn-primary:hover:not(:disabled) {
+  background-color: #3b82f6;
+}
+
+/* Crisp pixel rendering */
+.pixelated {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Custom compact scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080c14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
